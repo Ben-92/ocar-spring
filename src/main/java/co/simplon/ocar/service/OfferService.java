@@ -1,5 +1,6 @@
 package co.simplon.ocar.service;
 
+import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +16,5 @@ public interface OfferService {
 
     List<Offer> getFilteredOffer(String brand, Integer lowestPrice, Integer highestPrice);
 
+    void addImageToOffer(Long offerId, Image imageToAdd);
 }

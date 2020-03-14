@@ -1,5 +1,7 @@
 package co.simplon.ocar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,6 +29,7 @@ public class Image {
     @Column(columnDefinition = "BLOB")
     private byte[] picByte;
 
+    @JsonIgnore
     @ManyToOne
     private Offer offer;
 

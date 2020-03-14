@@ -1,6 +1,8 @@
 package co.simplon.ocar.service;
 
+import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
+import co.simplon.ocar.repository.ImageRepository;
 import co.simplon.ocar.repository.OfferRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.Optional;
 public class OfferServiceImpl implements OfferService {
 
     private OfferRepository offerRepository;
+    private ImageRepository imageRepository;
 
-    public OfferServiceImpl(OfferRepository offerRepository){
+    public OfferServiceImpl(OfferRepository offerRepository, ImageRepository imageRepository){
         this.offerRepository = offerRepository;
+        this.imageRepository = imageRepository;
     }
 
     @Override
@@ -30,6 +34,21 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Optional<Offer> getOfferById(Long offerId){
         return offerRepository.findById(offerId);
+    }
+
+    @Override
+    public void addImageToOffer(Long offerId, Image imageToAdd) {
+        Optional<Offer> offerOptional = offerRepository.findById(offerId);
+
+        if (offerOptional.isPresent()){
+            imageToAdd.setOffer(offerOptional.get());
+            imageRepository.save(imageToAdd);
+        } else {
+            System.out.println("Offer non trouvée en base");
+            //ajouter ici une erreur, lancer une exception, à catcher dans le controller
+        }
+
+
     }
 
 }

@@ -17,6 +17,12 @@ public class SellerController {
         this.sellerService = sellerService;
     }
 
+    /**
+     * save a new offer for a given seller
+     * @param sellerId id of the seller who deposits the offer
+     * @param offerToAdd Offer deposited by the seller defined by id seller
+     * @return Offer created
+     */
     @PostMapping("/{sellerId}/offer")
     public ResponseEntity<Offer> addOfferToSeller(@PathVariable Long sellerId, @RequestBody Offer offerToAdd) {
         Offer createdOffer = sellerService.createOffer(sellerId, offerToAdd);

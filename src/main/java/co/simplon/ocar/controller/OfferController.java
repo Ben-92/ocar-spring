@@ -1,10 +1,13 @@
 package co.simplon.ocar.controller;
 
+import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
 import co.simplon.ocar.service.OfferService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +58,19 @@ public class OfferController {
             return ResponseEntity.ok(offer.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("{offerId}/images")
+    public ResponseEntity<Image> addImage(  @PathVariable Long offerId,
+                                            @RequestParam("imageFile") MultipartFile file)
+                                            throws IOException {
+
+        Image img = new Image(  file.getOriginalFilename(),
+                                file.getContentType(),
+                                file.getBytes());
+
+        offerService.addImageToOffer(offerId, img);
+        return ResponseEntity.ok().build();
     }
 
 }

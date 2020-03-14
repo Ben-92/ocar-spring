@@ -21,13 +21,12 @@ ImageService imageService ;
         this.imageService = imageService;
     }
 
+    //à deleter ainsi que la méthode appellée
     @PostMapping
-//    public ResponseEntity.BodyBuilder addImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
     public ResponseEntity<Image> addImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
 
         Image img = new Image(file.getOriginalFilename(), file.getContentType(),file.getBytes());
         imageService.addImage(img);
-//        return ResponseEntity.status(HttpStatus.OK);
         return ResponseEntity.ok().build();
     }
 
