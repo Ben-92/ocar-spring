@@ -21,15 +21,11 @@ ImageService imageService ;
         this.imageService = imageService;
     }
 
-    //à deleter ainsi que la méthode appellée
-    @PostMapping
-    public ResponseEntity<Image> addImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
-
-        Image img = new Image(file.getOriginalFilename(), file.getContentType(),file.getBytes());
-        imageService.addImage(img);
-        return ResponseEntity.ok().build();
-    }
-
+    /**
+     * getting an image by its name
+     * @param imageName name of the image
+     * @return a ResponseEntity with the Image retrieved
+     */
     @GetMapping("/name/{imageName}")
     public ResponseEntity<Image> getImageByName(@PathVariable("imageName") String imageName){
         Optional<Image> optionalImageByName = imageService.getImageByName(imageName);

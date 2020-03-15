@@ -15,9 +15,6 @@ public class ImageServiceImpl implements ImageService{
         this.imageRepository = imageRepository;
     }
 
-    public void addImage(Image imageToAdd) {
-        imageRepository.save(imageToAdd);
-    }
 
     @Override
     public Optional<Image> getImageByName(String imageName) {

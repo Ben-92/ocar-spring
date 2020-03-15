@@ -47,7 +47,7 @@ public class OfferController {
     /**
      * getting a specific offer
      * @param offerId id of the offer to retrieve data from
-     * @return a specific offer
+     * @return a ResponseEntity with the Offer retrieved
      */
     @GetMapping("/{offerId}")
     public ResponseEntity<Offer> getOfferById(@PathVariable Long offerId){
@@ -60,6 +60,13 @@ public class OfferController {
         return ResponseEntity.notFound().build();
     }
 
+    /**
+     * persist a new Image to a specific Offer
+     * @param offerId the added will be saved to this Offer Id
+     * @param file The Image to save
+     * @return A ResponseEntity with the Image saved
+     * @throws IOException
+     */
     @PostMapping("{offerId}/images")
     public ResponseEntity<Image> addImage(  @PathVariable Long offerId,
                                             @RequestParam("imageFile") MultipartFile file)

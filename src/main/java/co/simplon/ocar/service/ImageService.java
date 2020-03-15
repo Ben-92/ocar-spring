@@ -8,7 +8,6 @@ import java.util.Optional;
 @Service
 public interface ImageService {
 
-void addImage(Image imageToAdd);
 
 Optional<Image> getImageByName (String imageName);
 
