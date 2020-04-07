@@ -4,7 +4,7 @@ import co.simplon.ocar.model.Offer;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface SellerService {
+public interface ClientService {
 
-    Offer createOffer(Long sellerId, Offer offerToAdd);
+    Offer createOffer(Long clientId, Offer offerToAdd);
 }

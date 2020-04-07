@@ -1,7 +1,5 @@
 package co.simplon.ocar.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,7 +39,7 @@ public class Offer {
 //    private Car car;
 
     @ManyToOne
-    private Seller seller;
+    private Client client;
 
     @ManyToMany
     @JoinTable(
@@ -99,8 +97,8 @@ public class Offer {
         return price;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public Client getClient() {
+        return client;
     }
 
     public Set<Equipment> getEquipments() {
@@ -151,8 +149,8 @@ public class Offer {
         this.price = price;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public void setEquipments(Set<Equipment> equipments) {
