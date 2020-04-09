@@ -3,7 +3,7 @@ insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'inter
 insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions adaptables');
 
 
-insert into client (id, last_name, first_name, email) values (client_seq_id.nextval, 'Redford', 'Robert', 'bob@gmail.com');
+insert into client (id, last_name, first_name, user_name, email) values (client_seq_id.nextval, 'Redford', 'Robert', 'Bob92', 'bob@gmail.com');
 
 insert into offer (id, date, postal_code, car_brand, car_model, year, gearbox, outer_color, four_wheel_drive, description, price, client_id)
     values (offer_seq_id.nextval, '2020-02-01T12:45:30', 92300, 'Renault', 'Clio', 1990, 'Manuelle', 'Bleu', false, 'description voiture', 5000,1);
