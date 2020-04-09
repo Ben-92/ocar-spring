@@ -1,5 +1,6 @@
 package co.simplon.ocar.service;
 
+import co.simplon.ocar.exception.ClientAlreadyExistsException;
 import co.simplon.ocar.model.Client;
 import co.simplon.ocar.model.Offer;
 import co.simplon.ocar.repository.OfferRepository;
@@ -21,7 +22,27 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public Offer createOffer(Long clientId, Offer offerToCreate) {
+    public Optional<Client> getClientById(Long clientId){
+        return clientRepository.findById(clientId);
+    }
+
+    @Override
+    public Client createClient(Client clientToCreate)  {
+
+        /*checking for the already existing client credentials userName and email*/
+        Optional<Client> optionalClient =
+                clientRepository.findClientByUserNameAndEmail(clientToCreate.getUserName(), clientToCreate.getEmail());
+
+        if (optionalClient.isPresent()){
+            return optionalClient.get();
+            /*throw new ClientAlreadyExistsException();*/
+        } else {
+            return clientRepository.save(clientToCreate);
+        }
+    }
+
+    @Override
+    public Offer createOfferToClient(Long clientId, Offer offerToCreate) {
         Optional<Client> client = clientRepository.findById(clientId);
 
         if (client.isPresent()) {

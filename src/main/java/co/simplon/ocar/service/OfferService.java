@@ -12,7 +12,7 @@ public interface OfferService {
 
     List<Offer> getOfferList();
 
-    Optional<Offer> getOfferById(Long carId);
+    Optional<Offer> getOfferById(Long offerId);
 
     List<Offer> getFilteredOffer(String brand, Integer lowestPrice, Integer highestPrice);
 
