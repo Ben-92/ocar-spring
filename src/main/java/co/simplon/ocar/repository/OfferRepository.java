@@ -9,6 +9,12 @@ import java.util.List;
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Long> {
 
-//    List<Offer> findAllByPriceBetween(Integer lowestPrice, Integer highestPrice);
-    List<Offer> findAllByCarBrandAndPriceBetween(String brand, Integer lowestPrice, Integer highestPrice);
+    List<Offer> findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetween(
+            String lowestBrand, String highestBrand,
+            String lowestModel, String highestModel,
+            Integer lowestPostCode, Integer highestPostCode,
+            String lowestYear, String highestYear,
+            String gearbox,
+            Integer lowestPrice, Integer highestPrice
+    );
 }

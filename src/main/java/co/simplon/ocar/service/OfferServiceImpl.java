@@ -26,9 +26,20 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<Offer> getFilteredOffer(String brand, Integer lowestPrice, Integer highestPrice){
-//        return this.offerRepository.findAllByPriceBetween(lowestPrice, highestPrice);
-        return this.offerRepository.findAllByCarBrandAndPriceBetween(brand, lowestPrice, highestPrice);
+    public List<Offer> getFilteredOffer(String lowestBrand, String highestBrand,
+                                        String lowestModel, String highestModel,
+                                        Integer lowestPostCode, Integer highestPostCode,
+                                        String lowestYear, String highestYear,
+                                        String gearbox,
+                                        Integer lowestPrice, Integer highestPrice){
+
+        return this.offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetween(
+                lowestBrand, highestBrand,
+                lowestModel, highestModel,
+                lowestPostCode, highestPostCode,
+                lowestYear, highestYear,
+                gearbox,
+                lowestPrice, highestPrice);
     }
 
     @Override

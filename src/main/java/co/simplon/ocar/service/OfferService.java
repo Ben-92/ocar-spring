@@ -14,7 +14,12 @@ public interface OfferService {
 
     Optional<Offer> getOfferById(Long offerId);
 
-    List<Offer> getFilteredOffer(String brand, Integer lowestPrice, Integer highestPrice);
+    List<Offer> getFilteredOffer(String lowestBrand, String highestBrand,
+                                 String lowestModel, String highestModel,
+                                 Integer lowestPostCode, Integer highestPostCode,
+                                 String lowestYear, String highestYear,
+                                 String gearbox,
+                                 Integer lowestPrice, Integer highestPrice);
 
     void addImageToOffer(Long offerId, Image imageToAdd);
 }

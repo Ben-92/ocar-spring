@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,10 +39,22 @@ public class OfferController {
      * @return
      */
     @GetMapping("/filter")
-    public List<Offer> getFilteredOffer(@RequestParam String brand,
+
+    public List<Offer> getFilteredOffer(@RequestParam String lowestBrand,
+                                        @RequestParam String highestBrand,
+                                        @RequestParam String lowestModel,
+                                        @RequestParam String highestModel,
+                                        @RequestParam Integer lowestPostCode,
+                                        @RequestParam Integer highestPostCode,
+                                        @RequestParam String lowestYear,
+                                        @RequestParam String highestYear,
+                                        @RequestParam String gearbox,
                                         @RequestParam Integer lowestPrice,
                                         @RequestParam Integer highestPrice){
-        return offerService.getFilteredOffer(brand, lowestPrice, highestPrice);
+
+            return offerService.getFilteredOffer(lowestBrand, highestBrand, lowestModel, highestModel,
+                    lowestPostCode, highestPostCode, lowestYear, highestYear, gearbox, lowestPrice, highestPrice);
+
     }
 
     /**
