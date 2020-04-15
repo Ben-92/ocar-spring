@@ -3,10 +3,12 @@ package co.simplon.ocar.controller;
 import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
 import co.simplon.ocar.service.OfferService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +29,22 @@ public class OfferController {
      * getting list of all offers
      * @return list of offers in database
      */
+//    @GetMapping
+//    public List<Offer> getOfferList() {
+//        return this.offerService.getOfferList();
+//    }
+
     @GetMapping
-    public List<Offer> getOfferList() {
-        return this.offerService.getOfferList();
+    public Page<Offer> getOfferList(
+           @Valid @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+           @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize,
+           @Valid @RequestParam(value = "sort", required = false) String criteria,
+           @Valid @RequestParam(value = "direction", required = false) String direction) {
+
+        return offerService.getOfferList(pageNumber, pageSize, criteria, direction);
     }
+
+
 
     /**
      * getting filtered list of offers

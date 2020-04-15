@@ -2,6 +2,7 @@ package co.simplon.ocar.service;
 
 import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,9 @@ import java.util.Optional;
 @Service
 public interface OfferService {
 
-    List<Offer> getOfferList();
+//    List<Offer> getOfferList();
+
+    Page<Offer> getOfferList(Integer pageNumber, Integer pageSize, String criteria, String direction);
 
     Optional<Offer> getOfferById(Long offerId);
 
