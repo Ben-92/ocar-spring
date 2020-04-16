@@ -17,12 +17,22 @@ public interface OfferService {
 
     Optional<Offer> getOfferById(Long offerId);
 
-    List<Offer> getFilteredOffer(String lowestBrand, String highestBrand,
+//    Page<Offer> getFilteredOffer(String model, Integer pageNumber, Integer pageSize, String criteria, String direction);
+    Page<Offer> getFilteredOffer(String lowestBrand, String highestBrand,
                                  String lowestModel, String highestModel,
                                  Integer lowestPostCode, Integer highestPostCode,
                                  String lowestYear, String highestYear,
                                  String gearbox,
-                                 Integer lowestPrice, Integer highestPrice);
+                                 Integer lowestPrice, Integer highestPrice,
+                                 Integer pageNumber, Integer pageSize, String criteria, String direction);
+
+
+//    List<Offer> getFilteredOffer(String lowestBrand, String highestBrand,
+//                                 String lowestModel, String highestModel,
+//                                 Integer lowestPostCode, Integer highestPostCode,
+//                                 String lowestYear, String highestYear,
+//                                 String gearbox,
+//                                 Integer lowestPrice, Integer highestPrice);
 
     void addImageToOffer(Long offerId, Image imageToAdd);
 }

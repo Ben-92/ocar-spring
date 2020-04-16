@@ -45,7 +45,6 @@ public class OfferController {
     }
 
 
-
     /**
      * getting filtered list of offers
      * @param lowestPrice minimum price criteria
@@ -53,23 +52,46 @@ public class OfferController {
      * @return
      */
     @GetMapping("/filter")
+    public Page<Offer> getFilteredOffer(
+            @RequestParam String lowestBrand,
+            @RequestParam String highestBrand,
+            @RequestParam String lowestModel,
+            @RequestParam String highestModel,
+            @RequestParam Integer lowestPostCode,
+            @RequestParam Integer highestPostCode,
+            @RequestParam String lowestYear,
+            @RequestParam String highestYear,
+            @RequestParam String gearbox,
+            @RequestParam Integer lowestPrice,
+            @RequestParam Integer highestPrice,
 
-    public List<Offer> getFilteredOffer(@RequestParam String lowestBrand,
-                                        @RequestParam String highestBrand,
-                                        @RequestParam String lowestModel,
-                                        @RequestParam String highestModel,
-                                        @RequestParam Integer lowestPostCode,
-                                        @RequestParam Integer highestPostCode,
-                                        @RequestParam String lowestYear,
-                                        @RequestParam String highestYear,
-                                        @RequestParam String gearbox,
-                                        @RequestParam Integer lowestPrice,
-                                        @RequestParam Integer highestPrice){
+            @Valid @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+            @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @Valid @RequestParam(value = "sort", required = false) String criteria,
+            @Valid @RequestParam(value = "direction", required = false) String direction) {
 
-            return offerService.getFilteredOffer(lowestBrand, highestBrand, lowestModel, highestModel,
-                    lowestPostCode, highestPostCode, lowestYear, highestYear, gearbox, lowestPrice, highestPrice);
-
+        return offerService.getFilteredOffer(lowestBrand, highestBrand, lowestModel, highestModel,
+                    lowestPostCode, highestPostCode, lowestYear, highestYear, gearbox, lowestPrice, highestPrice,
+                pageNumber, pageSize, criteria, direction);
+//        return offerService.getFilteredOffer(model, pageNumber, pageSize, criteria, direction);
     }
+
+//    public List<Offer> getFilteredOffer(@RequestParam String lowestBrand,
+//                                        @RequestParam String highestBrand,
+//                                        @RequestParam String lowestModel,
+//                                        @RequestParam String highestModel,
+//                                        @RequestParam Integer lowestPostCode,
+//                                        @RequestParam Integer highestPostCode,
+//                                        @RequestParam String lowestYear,
+//                                        @RequestParam String highestYear,
+//                                        @RequestParam String gearbox,
+//                                        @RequestParam Integer lowestPrice,
+//                                        @RequestParam Integer highestPrice){
+//
+//            return offerService.getFilteredOffer(lowestBrand, highestBrand, lowestModel, highestModel,
+//                    lowestPostCode, highestPostCode, lowestYear, highestYear, gearbox, lowestPrice, highestPrice);
+//
+//    }
 
     /**
      * getting a specific offer
