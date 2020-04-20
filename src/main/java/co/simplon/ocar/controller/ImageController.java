@@ -24,7 +24,7 @@ ImageService imageService ;
     /**
      * getting an image by its name
      * @param imageName name of the image
-     * @return a ResponseEntity with the Image retrieved
+     * @return an Offer ResponseEntity type
      */
     @GetMapping("/name/{imageName}")
     public ResponseEntity<Image> getImageByName(@PathVariable("imageName") String imageName){

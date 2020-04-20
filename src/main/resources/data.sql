@@ -1,6 +1,8 @@
 insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Sièges cuir');
 insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Volant Alcantara');
 insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions adaptables');
+insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions réglables');
+insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Appuie-têtes réglables');
 
 
 insert into client (id, last_name, first_name, user_name, email) values (client_seq_id.nextval, 'Redford', 'Robert', 'Bob92', 'bob@gmail.com');
@@ -33,6 +35,8 @@ insert into offer (id, date, postal_code, car_brand, car_model, year, gearbox, o
 insert into offers_equipments (offer_id, equipment_id) values (1, 1);
 insert into offers_equipments (offer_id, equipment_id) values (1, 2);
 insert into offers_equipments (offer_id, equipment_id) values (1, 3);
+insert into offers_equipments (offer_id, equipment_id) values (1, 4);
+insert into offers_equipments (offer_id, equipment_id) values (1, 5);
 
 
 -- insert into offer (id, date, postal_code, car_brand, car_model, price, car_id)

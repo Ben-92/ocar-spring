@@ -33,7 +33,7 @@ public class Image {
     @ManyToOne
     private Offer offer;
 
-    //Getters et setters
+    //Getters and setters
     public Long getId() {
         return id;
     }

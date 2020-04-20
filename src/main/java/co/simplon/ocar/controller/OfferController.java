@@ -25,31 +25,44 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    /**
-     * getting list of all offers
-     * @return list of offers in database
-     */
-//    @GetMapping
-//    public List<Offer> getOfferList() {
-//        return this.offerService.getOfferList();
-//    }
 
+    /**
+     * retrieving a Page of existing Offers
+     * @param pageNumber    number of the Page to retrieve
+     * @param pageSize      number of Offers per page
+     * @param criteria      sort criteria
+     * @param direction     direction of sorting
+     * @return  the result Page if existing
+     */
     @GetMapping
-    public Page<Offer> getOfferList(
+    public Page<Offer> getOfferPage(
            @Valid @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
            @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize,
            @Valid @RequestParam(value = "sort", required = false) String criteria,
            @Valid @RequestParam(value = "direction", required = false) String direction) {
 
-        return offerService.getOfferList(pageNumber, pageSize, criteria, direction);
+        return offerService.getOfferPage(pageNumber, pageSize, criteria, direction);
     }
 
 
     /**
-     * getting filtered list of offers
-     * @param lowestPrice minimum price criteria
-     * @param highestPrice maximum price criteria
-     * @return
+     *
+     * @param lowestBrand   Brand min value searched for
+     * @param highestBrand  Brand max value searched for
+     * @param lowestModel   Model min value searched for
+     * @param highestModel  Model max value searched for
+     * @param lowestPostCode    PostCode min value searched for
+     * @param highestPostCode   PostCode max value searched for
+     * @param lowestYear    Vehicle Year min value searched for
+     * @param highestYear   Vehicle Year max value searched for
+     * @param gearbox       gearbox value searched fo
+     * @param lowestPrice   Vehicle price min value searched for
+     * @param highestPrice  Vehicle price max value searched for
+     * @param pageNumber    number of the Page to retrieve
+     * @param pageSize      number of Offers per page
+     * @param criteria      sort criteria
+     * @param direction     direction of sorting
+     * @return  the result Page if existing
      */
     @GetMapping("/filter")
     public Page<Offer> getFilteredOffer(
@@ -73,30 +86,14 @@ public class OfferController {
         return offerService.getFilteredOffer(lowestBrand, highestBrand, lowestModel, highestModel,
                     lowestPostCode, highestPostCode, lowestYear, highestYear, gearbox, lowestPrice, highestPrice,
                 pageNumber, pageSize, criteria, direction);
-//        return offerService.getFilteredOffer(model, pageNumber, pageSize, criteria, direction);
+
     }
 
-//    public List<Offer> getFilteredOffer(@RequestParam String lowestBrand,
-//                                        @RequestParam String highestBrand,
-//                                        @RequestParam String lowestModel,
-//                                        @RequestParam String highestModel,
-//                                        @RequestParam Integer lowestPostCode,
-//                                        @RequestParam Integer highestPostCode,
-//                                        @RequestParam String lowestYear,
-//                                        @RequestParam String highestYear,
-//                                        @RequestParam String gearbox,
-//                                        @RequestParam Integer lowestPrice,
-//                                        @RequestParam Integer highestPrice){
-//
-//            return offerService.getFilteredOffer(lowestBrand, highestBrand, lowestModel, highestModel,
-//                    lowestPostCode, highestPostCode, lowestYear, highestYear, gearbox, lowestPrice, highestPrice);
-//
-//    }
 
     /**
      * getting a specific offer
      * @param offerId id of the offer to retrieve data from
-     * @return a ResponseEntity with the Offer retrieved
+     * @return an Offer ResponseEntity type
      */
     @GetMapping("/{offerId}")
     public ResponseEntity<Offer> getOfferById(@PathVariable Long offerId){

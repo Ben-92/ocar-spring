@@ -25,17 +25,18 @@ public class OfferServiceImpl implements OfferService {
         this.imageRepository = imageRepository;
     }
 
-//    @Override
-//    public List<Offer> getOfferList(){
-//        return this.offerRepository.findAll();
-//    }
 
+    /**
+     * retrieving an Offer Page, giving specific criteria parameters
+     * @param pageNumber    number of the Page to retrieve
+     * @param pageSize      number of Offers per page
+     * @param criteria      sort criteria
+     * @param direction     direction of sorting
+     * @return  the result Page if existing
+     */
     @Override
-    public Page<Offer> getOfferList(Integer pageNumber, Integer pageSize, String criteria, String direction) {
-        System.out.println("pageNumber: " + pageNumber);
-        System.out.println("pageSize: " + pageSize);
-        System.out.println("criteria: " + criteria);
-        System.out.println("direction: " + direction);
+    public Page<Offer> getOfferPage(Integer pageNumber, Integer pageSize, String criteria, String direction) {
+
         // If page number is not null then use it for paging, otherwise provide page 0
         int pNumber = (pageNumber != null) ? pageNumber : 0;
         // If page size is not null then use it for paging, otherwise use default 50 page size
@@ -63,6 +64,25 @@ public class OfferServiceImpl implements OfferService {
         return offerRepository.findAll(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
     }
 
+    /**
+     * retrieving a multi-criterias filtered Page
+     * @param lowestBrand   Brand min value searched for
+     * @param highestBrand  Brand max value searched for
+     * @param lowestModel   Model min value searched for
+     * @param highestModel  Model max value searched for
+     * @param lowestPostCode    PostCode min value searched for
+     * @param highestPostCode   PostCode max value searched for
+     * @param lowestYear    Vehicle Year min value searched for
+     * @param highestYear   Vehicle Year max value searched for
+     * @param gearbox       gearbox value searched fo
+     * @param lowestPrice   Vehicle price min value searched for
+     * @param highestPrice  Vehicle price max value searched for
+     * @param pageNumber    number of the Page to retrieve
+     * @param pageSize      number of Offers per page
+     * @param criteria      sort criteria
+     * @param direction     direction of sorting
+     * @return  the result Page if existing
+     */
     @Override
     public Page<Offer> getFilteredOffer(String lowestBrand, String highestBrand,
                                         String lowestModel, String highestModel,
@@ -106,28 +126,17 @@ public class OfferServiceImpl implements OfferService {
                 PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
     }
 
-//    @Override
-//    public List<Offer> getFilteredOffer(String lowestBrand, String highestBrand,
-//                                        String lowestModel, String highestModel,
-//                                        Integer lowestPostCode, Integer highestPostCode,
-//                                        String lowestYear, String highestYear,
-//                                        String gearbox,
-//                                        Integer lowestPrice, Integer highestPrice){
-//
-//        return this.offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetween(
-//                lowestBrand, highestBrand,
-//                lowestModel, highestModel,
-//                lowestPostCode, highestPostCode,
-//                lowestYear, highestYear,
-//                gearbox,
-//                lowestPrice, highestPrice);
-//    }
 
     @Override
     public Optional<Offer> getOfferById(Long offerId){
         return offerRepository.findById(offerId);
     }
 
+    /**
+     * creating an Image for an Offer
+     * @param offerId   Id of the Offer
+     * @param imageToAdd    Image Object to Persist
+     */
     @Override
     public void addImageToOffer(Long offerId, Image imageToAdd) {
         Optional<Offer> offerOptional = offerRepository.findById(offerId);

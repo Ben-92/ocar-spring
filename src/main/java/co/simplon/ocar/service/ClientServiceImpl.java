@@ -41,6 +41,12 @@ public class ClientServiceImpl implements ClientService{
         }
     }
 
+    /**
+     * creating an Offer to a Client
+     * @param clientId  Id of the client
+     * @param offerToCreate Offer object to persist
+     * @return  the Offer created
+     */
     @Override
     public Offer createOfferToClient(Long clientId, Offer offerToCreate) {
         Optional<Client> client = clientRepository.findById(clientId);

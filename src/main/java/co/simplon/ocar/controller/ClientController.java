@@ -19,6 +19,11 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    /**
+     * retrieving a client response entity, giving its Id
+     * @param clientId Id of the client
+     * @return a Client ResponseEntity type
+     */
     @GetMapping("/{clientId}")
     public ResponseEntity<Client> getClientById(@PathVariable Long clientId){
 
@@ -36,7 +41,7 @@ public class ClientController {
      * saving client if non existing and send it back to front
      * sending existing client if already existing (username + email already existing)
      * @param clientToCreate
-     * @return
+     * @return a Client ResponseEntity type
      */
     @PostMapping
     public ResponseEntity<Client> addClientIfNonExisting (@RequestBody Client clientToCreate) {
@@ -52,8 +57,8 @@ public class ClientController {
     /**
      * save a new offer for a given client
      * @param clientId id of the client who deposits the offer
-     * @param offerToAdd Offer deposited by the client defined by id client
-     * @return Offer created
+     * @param offerToAdd Offer deposited by the client
+     * @return an Offer ResponseEntity type
      */
     @PostMapping("/{clientId}/offer")
     public ResponseEntity<Offer> addOfferToClient(@PathVariable Long clientId, @RequestBody Offer offerToAdd) {

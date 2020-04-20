@@ -35,8 +35,6 @@ public class Offer {
 
     private Integer price;
 
-//    @ManyToOne
-//    private Car car;
 
     @ManyToOne
     private Client client;
