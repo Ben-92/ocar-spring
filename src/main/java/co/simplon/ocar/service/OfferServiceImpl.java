@@ -74,7 +74,7 @@ public class OfferServiceImpl implements OfferService {
      * @param highestPostCode   PostCode max value searched for
      * @param lowestYear    Vehicle Year min value searched for
      * @param highestYear   Vehicle Year max value searched for
-     * @param gearbox       gearbox value searched fo
+     * @param gearbox       gearbox value searched for
      * @param lowestPrice   Vehicle price min value searched for
      * @param highestPrice  Vehicle price max value searched for
      * @param pageNumber    number of the Page to retrieve
