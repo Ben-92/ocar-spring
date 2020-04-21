@@ -1,3 +1,7 @@
+insert into roles (name) values ('ROLE_USER');
+insert into roles (name) values ('ROLE_MODERATOR');
+insert into roles (name) values ('ROLE_ADMIN');
+
 insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Sièges cuir');
 insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Volant Alcantara');
 insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions adaptables');
@@ -31,6 +35,8 @@ insert into offer (id, date, postal_code, car_brand, car_model, year, gearbox, o
     values (offer_seq_id.nextval, '2020-02-13T12:45:30', 59001, 'Ferrari', 'Testarossa', 1990, 'Manuelle', 'Bleu', false, 'description voiture 3', 60000,1 );
 insert into offer (id, date, postal_code, car_brand, car_model, year, gearbox, outer_color, four_wheel_drive, description, price, client_id)
     values (offer_seq_id.nextval, '2020-02-14T12:45:30', 59001, 'Ferrari', 'Testarossa', 1990, 'Manuelle', 'Bleu', false, 'description voiture 3', 50000,1 );
+
+
 
 insert into offers_equipments (offer_id, equipment_id) values (1, 1);
 insert into offers_equipments (offer_id, equipment_id) values (1, 2);
