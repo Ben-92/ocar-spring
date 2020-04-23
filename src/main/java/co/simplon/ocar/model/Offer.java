@@ -35,9 +35,11 @@ public class Offer {
 
     private Integer price;
 
+    // // TODO: 23/04/2020 change brand and model to entities 
 
+    /* adding joining with user */
     @ManyToOne
-    private Client client;
+    private User user;
 
     @ManyToMany
     @JoinTable(
@@ -48,6 +50,7 @@ public class Offer {
 
     @OneToMany(mappedBy = "offer")
     private List<Image> images = new ArrayList<>();
+
 
 
     // Getters et setters
@@ -95,9 +98,16 @@ public class Offer {
         return price;
     }
 
-    public Client getClient() {
-        return client;
+//    public Client getClient() {
+//        return client;
+//    }
+
+
+    public User getUser() {
+        return user;
     }
+
+
 
     public Set<Equipment> getEquipments() {
         return equipments;
@@ -147,8 +157,12 @@ public class Offer {
         this.price = price;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+//    public void setClient(Client client) {
+//        this.client = client;
+//    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setEquipments(Set<Equipment> equipments) {
