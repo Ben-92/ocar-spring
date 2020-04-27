@@ -1,12 +1,26 @@
-insert into roles (name) values ('ROLE_USER');
-insert into roles (name) values ('ROLE_MODERATOR');
-insert into roles (name) values ('ROLE_ADMIN');
+-- au premier lancement de l'appli : ddl-auto= create
+-- lancements suivants : ddl-auto= update
 
-insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Sièges cuir');
-insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Volant Alcantara');
-insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions adaptables');
-insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions réglables');
-insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Appuie-têtes réglables');
+-- les delete sont à coder que en mode ddl-auto=update, et si nécessaire (si jeu de données à recréer)
+-- et si ça ne vient pas à l'encontre de contraintes de la base. Par exemple deleter les roles seuls pose pb
+-- si on ne delete pas les role_user
+--      delete from roles;
+
+
+-- pour le premier passage, mettre ddl-auto=create et mettre les requètes d'initialisation de la base comme ci-dessous pour
+-- initialiser les roles
+--      insert into roles (id, name) values (1, 'ROLE_USER');
+--      insert into roles (id, name) values (2, 'ROLE_MODERATOR');
+--      insert into roles (id, name) values (3, 'ROLE_ADMIN');
+
+-- pour les passages suivants : ordre sql 'bidon' pour les passages en ddl-auto=update. le data.sql ne peut pas être vide
+update roles set name = 'ROLE_USER' where id = 1;
+--
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Sièges cuir');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Volant Alcantara');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions adaptables');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions réglables');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Appuie-têtes réglables');
 
 
 -- insert into client (id, last_name, first_name, user_name, email) values (client_seq_id.nextval, 'Redford', 'Robert', 'Bob92', 'bob@gmail.com');

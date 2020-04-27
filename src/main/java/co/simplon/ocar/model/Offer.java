@@ -41,7 +41,7 @@ public class Offer {
     @ManyToOne
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "offers_equipments",
             joinColumns = @JoinColumn(name = "offer_id"),

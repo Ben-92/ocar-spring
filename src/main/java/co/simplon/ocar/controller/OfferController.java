@@ -1,5 +1,6 @@
 package co.simplon.ocar.controller;
 
+import co.simplon.ocar.model.Equipment;
 import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
 import co.simplon.ocar.service.OfferService;
@@ -123,6 +124,16 @@ public class OfferController {
                                 file.getBytes());
 
         offerService.addImageToOffer(offerId, img);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("{offerId}/equipments")
+    public ResponseEntity<?> addEquipment(  @PathVariable Long offerId,
+                                            @RequestBody List<Equipment> equipmentL)
+            {
+
+
+        offerService.addEquipmentToOffer(offerId, equipmentL);
         return ResponseEntity.ok().build();
     }
 
