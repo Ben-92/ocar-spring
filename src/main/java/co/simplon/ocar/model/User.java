@@ -1,6 +1,6 @@
 package co.simplon.ocar.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -32,6 +32,7 @@ public class User {
     @Email
     private String email;
 
+    @JsonIgnore
     @NotBlank
     @Size(max = 120)
     private String password;
@@ -44,7 +45,10 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     /* adding joining with offer */
-    @JsonIgnore
+    //@JsonIgnore
+//    @JsonManagedReference
+//    @JsonBackReference
+    @JsonIgnoreProperties("user")
     @OneToMany(mappedBy = "user")
     private List<Offer> offers = new ArrayList<>();
 

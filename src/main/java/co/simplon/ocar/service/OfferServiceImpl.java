@@ -1,5 +1,6 @@
 package co.simplon.ocar.service;
 
+import co.simplon.ocar.exception.OfferNotFoundException;
 import co.simplon.ocar.model.Equipment;
 import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
@@ -167,14 +168,16 @@ public class OfferServiceImpl implements OfferService {
 
             Offer offerToUpdate = new Offer();
             offerToUpdate.setId(existingOffer.getId());
+            offerToUpdate.setDate(existingOffer.getDate());
+            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
             offerToUpdate.setCarBrand(existingOffer.getCarBrand());
             offerToUpdate.setCarModel(existingOffer.getCarModel());
-            offerToUpdate.setDate(existingOffer.getDate());
+            offerToUpdate.setYear(existingOffer.getYear());
             offerToUpdate.setDescription(existingOffer.getDescription());
             offerToUpdate.setFourWheelDrive(existingOffer.isFourWheelDrive());
             offerToUpdate.setGearbox(existingOffer.getGearbox());
             offerToUpdate.setOuterColor(existingOffer.getOuterColor());
-            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
+
             offerToUpdate.setPrice(existingOffer.getPrice());
             offerToUpdate.setUser(existingOffer.getUser());
             offerToUpdate.setImages(existingOffer.getImages());
@@ -182,45 +185,98 @@ public class OfferServiceImpl implements OfferService {
             for (Equipment equip : equipmentL){
                 Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
                 if (optionalEquipment.isPresent()){ //l'equipement existe en base   Offer offerToAddToSet = new Offer ();
-                    // option 1 : dans le sens : ajouter un equipement à l'offre
-                    // Ajouter l'equipement dans le Set<equipement> de l'Offer
-
-                    System.out.println("equipement présent en base: " +   optionalEquipment.get().getLabel());
-                    System.out.println("equipement présent en base Id: " + optionalEquipment.get().getId());
-
+                    // option 1 : dans le sens : ajouter un equipement à l'offre - Ajouter l'equipement dans le Set<equipement> de l'Offer
                     offerToUpdate.setEquipments(existingOffer.getEquipments());
-//                    offerToUpdate.getEquipments().add(equip);
+
                     offerToUpdate.getEquipments().add(optionalEquipment.get());
 
                     offerRepository.save(offerToUpdate);
 
-//                    Equipment equipmentToAdd = new Equipment();
-//                    equipmentToAdd.setId(optionalEquipment.get().getId());
-//                    equipmentToAdd.setLabel(optionalEquipment.get().getLabel());
-//                    equipmentToAdd.setType(optionalEquipment.get().getType());
-
-
                 } else { // l'equipement n'existe pas en base
-                    System.out.println("equipement non présent en base: " + equip.getLabel());
-                    System.out.println("equipement non présent en base Id: " + equip.getId());
-
                     offerToUpdate.setEquipments(existingOffer.getEquipments());
                     offerToUpdate.getEquipments().add(equip);
 
                     offerRepository.save(offerToUpdate);
-
-                    // option 1 : dans le sens : ajouter un equipement à l'offre : ça fonctionne car l'offer est maitre dans la relation manytomany
-//                    Set<Equipment> equipmentSet = new HashSet<>();
-//                    equipmentSet.add(equip);
-//
-//                        offerToUpdate.setEquipments(equipmentSet);
-//                        offerRepository.save(offerToUpdate);
-
                 }
+            }
+        }
+    }
 
+    @Override
+    public void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL) {
+
+        Optional<Offer> optionalOffer = offerRepository.findById(offerId);
+
+        if (optionalOffer.isPresent()){
+
+            Offer existingOffer = optionalOffer.get();
+
+            Offer offerToUpdate = new Offer();
+            offerToUpdate.setId(existingOffer.getId());
+            offerToUpdate.setDate(existingOffer.getDate());
+            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
+            offerToUpdate.setCarBrand(existingOffer.getCarBrand());
+            offerToUpdate.setCarModel(existingOffer.getCarModel());
+            offerToUpdate.setYear(existingOffer.getYear());
+            offerToUpdate.setDescription(existingOffer.getDescription());
+            offerToUpdate.setFourWheelDrive(existingOffer.isFourWheelDrive());
+            offerToUpdate.setGearbox(existingOffer.getGearbox());
+            offerToUpdate.setOuterColor(existingOffer.getOuterColor());
+
+            offerToUpdate.setPrice(existingOffer.getPrice());
+            offerToUpdate.setUser(existingOffer.getUser());
+            offerToUpdate.setImages(existingOffer.getImages());
+
+            //initialiser un hashset vide et le setter dans offertoupdate
+            Set<Equipment> createdSet = new HashSet<>();
+            offerToUpdate.setEquipments(createdSet);
+
+            for (Equipment equip : equipmentL){
+
+                Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
+                if (optionalEquipment.isPresent()){ //l'equipement existe en base   Offer offerToAddToSet = new Offer ();
+
+//                    offerToUpdate.setEquipments(existingOffer.getEquipments());
+//                    offerToUpdate.getEquipments().add(equip);
+//                    createdSet.add(optionalEquipment.get());
+                    offerToUpdate.getEquipments().add(optionalEquipment.get());
+
+                    offerRepository.save(offerToUpdate);
+
+
+                } else { // l'equipement n'existe pas en base
+
+//                    offerToUpdate.setEquipments(existingOffer.getEquipments());
+                    offerToUpdate.getEquipments().add(equip);
+
+                    offerRepository.save(offerToUpdate);
+                }
             }
         }
 
+    }
+
+    @Override
+    public boolean deleteOffer(Long idOfferToDelete) {
+
+        Optional<Offer> offerToDelete = offerRepository.findById(idOfferToDelete);
+        if (offerToDelete.isPresent()){
+            offerRepository.deleteById(idOfferToDelete);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Offer updateOffer (Long idOfferToUpdate, Offer offerToUpdate) throws OfferNotFoundException {
+        boolean isOfferExist = offerRepository.existsById(idOfferToUpdate);
+
+        if (isOfferExist && offerToUpdate.getId().equals(idOfferToUpdate)) {
+            return offerRepository.save(offerToUpdate);
+        } else {
+            throw new OfferNotFoundException();
+        }
     }
 
 }
@@ -233,3 +289,18 @@ public class OfferServiceImpl implements OfferService {
 //                        equip.setOffers(offerset);
 //                        //sauver l'equipement
 //                        equipmentRepository.save(equip);
+
+//                    Equipment equipmentToAdd = new Equipment();
+//                    equipmentToAdd.setId(optionalEquipment.get().getId());
+//                    equipmentToAdd.setLabel(optionalEquipment.get().getLabel());
+//                    equipmentToAdd.setType(optionalEquipment.get().getType());
+
+// option 1 : dans le sens : ajouter un equipement à l'offre : ça fonctionne car l'offer est maitre dans la relation manytomany
+//                    Set<Equipment> equipmentSet = new HashSet<>();
+//                    equipmentSet.add(equip);
+//
+//                        offerToUpdate.setEquipments(equipmentSet);
+//                        offerRepository.save(offerToUpdate);
+
+//                if (existingOffer.getEquipments().contains(equip)){
+//                }

@@ -1,5 +1,9 @@
 package co.simplon.ocar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,16 +43,19 @@ public class Offer {
 
     /* adding joining with user */
     @ManyToOne
+//    @JsonBackReference
+//    @JsonManagedReference
+    @JsonIgnoreProperties("offers")
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) /*PERSIST : when creating offer. Jpa delete the relation table rows without telling him, when offer deleted*/
     @JoinTable(
             name = "offers_equipments",
             joinColumns = @JoinColumn(name = "offer_id"),
             inverseJoinColumns = @JoinColumn(name = "equipment_id"))
     private Set<Equipment> equipments = new HashSet<>();
 
-    @OneToMany(mappedBy = "offer")
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.REMOVE) /*cascadeType.REMOVE when deleting an offer */
     private List<Image> images = new ArrayList<>();
 
 

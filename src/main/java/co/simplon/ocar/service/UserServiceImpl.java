@@ -19,6 +19,13 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+
+    @Override
+    public Optional<User> getUserById(Long userId){
+        System.out.println("getUserById");
+        return userRepository.findById(userId);
+    }
+
     /**
      * creating an Offer to a User
      * @param userId        Id of the User
@@ -37,4 +44,18 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+//    @Override
+//    public Offer updateOfferToUser(Long userId, Offer offerToUpdate) {
+//        Optional<User> user = userRepository.findById(userId);
+//
+//        if (user.isPresent()) {
+//            offerToUpdate.setUser(user.get());
+//            return offerRepository.save(offerToUpdate);
+//        } else {
+//            // On devrait renvoyer une exception
+//            return null;
+//        }
+//    }
+
 }

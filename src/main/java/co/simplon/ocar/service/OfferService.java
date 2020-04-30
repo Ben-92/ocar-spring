@@ -62,4 +62,10 @@ public interface OfferService {
     void addImageToOffer(Long offerId, Image imageToAdd);
 
     void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
+
+    void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
+
+    boolean deleteOffer (Long idOfferToDelete);
+
+    Offer updateOffer (Long idOfferToUpdate, Offer offerToUpdate);
 }
