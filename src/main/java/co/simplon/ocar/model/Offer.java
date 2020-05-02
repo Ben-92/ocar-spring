@@ -48,7 +48,7 @@ public class Offer {
     @JsonIgnoreProperties("offers")
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) /*PERSIST : when creating offer. Jpa delete the relation table rows without telling him, when offer deleted*/
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) /*PERSIST : when creating offer. When offer deleted, Jpa delete the relation table rows without need to tell Jpa*/
     @JoinTable(
             name = "offers_equipments",
             joinColumns = @JoinColumn(name = "offer_id"),
@@ -57,6 +57,7 @@ public class Offer {
 
     @OneToMany(mappedBy = "offer", cascade = CascadeType.REMOVE) /*cascadeType.REMOVE when deleting an offer */
     private List<Image> images = new ArrayList<>();
+
 
 
 
@@ -182,5 +183,22 @@ public class Offer {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "id=" + id +
+                ", date=" + date +
+                ", postalCode=" + postalCode +
+                ", carBrand='" + carBrand + '\'' +
+                ", carModel='" + carModel + '\'' +
+                ", year='" + year + '\'' +
+                ", gearbox='" + gearbox + '\'' +
+                ", outerColor='" + outerColor + '\'' +
+                ", fourWheelDrive=" + fourWheelDrive +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

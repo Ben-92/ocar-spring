@@ -53,4 +53,13 @@ public class Equipment {
     public void setOffers(Set<Offer> offers) {
         this.offers = offers;
     }
+
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", label='" + label + '\'' +
+                '}';
+    }
 }
