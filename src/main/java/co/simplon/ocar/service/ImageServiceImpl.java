@@ -20,4 +20,17 @@ public class ImageServiceImpl implements ImageService{
     public Optional<Image> getImageByName(String imageName) {
         return imageRepository.findByName(imageName);
     }
+
+    @Override
+    public boolean deleteImage(Long idImageToDelete) {
+
+        Optional<Image> imageToDelete = imageRepository.findById(idImageToDelete);
+        if (imageToDelete.isPresent()){
+            imageRepository.deleteById(idImageToDelete);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

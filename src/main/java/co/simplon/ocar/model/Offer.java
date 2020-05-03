@@ -1,5 +1,9 @@
 package co.simplon.ocar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,19 +39,26 @@ public class Offer {
 
     private Integer price;
 
+    // // TODO: 23/04/2020 change brand and model to entities 
 
+    /* adding joining with user */
     @ManyToOne
-    private Client client;
+//    @JsonBackReference
+//    @JsonManagedReference
+    @JsonIgnoreProperties("offers")
+    private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) /*PERSIST : when creating offer. When offer deleted, Jpa delete the relation table rows without need to tell Jpa*/
     @JoinTable(
             name = "offers_equipments",
             joinColumns = @JoinColumn(name = "offer_id"),
             inverseJoinColumns = @JoinColumn(name = "equipment_id"))
     private Set<Equipment> equipments = new HashSet<>();
 
-    @OneToMany(mappedBy = "offer")
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.REMOVE) /*cascadeType.REMOVE when deleting an offer */
     private List<Image> images = new ArrayList<>();
+
+
 
 
     // Getters et setters
@@ -95,9 +106,16 @@ public class Offer {
         return price;
     }
 
-    public Client getClient() {
-        return client;
+//    public Client getClient() {
+//        return client;
+//    }
+
+
+    public User getUser() {
+        return user;
     }
+
+
 
     public Set<Equipment> getEquipments() {
         return equipments;
@@ -147,8 +165,12 @@ public class Offer {
         this.price = price;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+//    public void setClient(Client client) {
+//        this.client = client;
+//    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setEquipments(Set<Equipment> equipments) {
@@ -161,5 +183,22 @@ public class Offer {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "id=" + id +
+                ", date=" + date +
+                ", postalCode=" + postalCode +
+                ", carBrand='" + carBrand + '\'' +
+                ", carModel='" + carModel + '\'' +
+                ", year='" + year + '\'' +
+                ", gearbox='" + gearbox + '\'' +
+                ", outerColor='" + outerColor + '\'' +
+                ", fourWheelDrive=" + fourWheelDrive +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

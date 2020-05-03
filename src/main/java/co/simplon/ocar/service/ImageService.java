@@ -11,4 +11,6 @@ public interface ImageService {
 
 Optional<Image> getImageByName (String imageName);
 
+    boolean deleteImage (Long idImageToDelete);
+
 }

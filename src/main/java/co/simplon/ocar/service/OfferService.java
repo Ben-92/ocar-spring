@@ -1,5 +1,6 @@
 package co.simplon.ocar.service;
 
+import co.simplon.ocar.model.Equipment;
 import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
 import org.springframework.data.domain.Page;
@@ -59,4 +60,12 @@ public interface OfferService {
      * @param imageToAdd    Image Object to Persist
      */
     void addImageToOffer(Long offerId, Image imageToAdd);
+
+    void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
+
+    void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
+
+    boolean deleteOffer (Long idOfferToDelete);
+
+    Offer updateOffer (Long idOfferToUpdate, Offer offerToUpdate);
 }

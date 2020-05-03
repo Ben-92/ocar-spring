@@ -37,4 +37,29 @@ public class Equipment {
     public Set<Offer> getOffers() {
         return offers;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setOffers(Set<Offer> offers) {
+        this.offers = offers;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipment{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", label='" + label + '\'' +
+                '}';
+    }
 }

@@ -35,4 +35,14 @@ ImageService imageService ;
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{imageId}")
+    public ResponseEntity<Image> deleteImage (@PathVariable Long imageId){
+        boolean isDeleted = imageService.deleteImage(imageId);
+
+        if (isDeleted){
+            return ResponseEntity.noContent().build();
+        } else
+            return ResponseEntity.notFound().build();
+    }
 }

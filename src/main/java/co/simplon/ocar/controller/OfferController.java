@@ -1,5 +1,7 @@
 package co.simplon.ocar.controller;
 
+import co.simplon.ocar.exception.OfferNotFoundException;
+import co.simplon.ocar.model.Equipment;
 import co.simplon.ocar.model.Image;
 import co.simplon.ocar.model.Offer;
 import co.simplon.ocar.service.OfferService;
@@ -124,6 +126,46 @@ public class OfferController {
 
         offerService.addImageToOffer(offerId, img);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("{offerId}/equipments")
+    public ResponseEntity<?> addEquipment(  @PathVariable Long offerId,
+                                            @RequestBody List<Equipment> equipmentL)
+            {
+
+
+        offerService.addEquipmentToOffer(offerId, equipmentL);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("{offerId}/equipments")
+    public ResponseEntity<?> updateEquipmentToOffer(  @PathVariable Long offerId,
+                                            @RequestBody List<Equipment> equipmentL)
+    {
+
+        offerService.updateEquipmentToOffer(offerId, equipmentL);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{offerId}")
+    public ResponseEntity<Offer> deleteOffer (@PathVariable Long offerId){
+        boolean isDeleted = offerService.deleteOffer(offerId);
+
+        if (isDeleted){
+            return ResponseEntity.noContent().build();
+        } else
+            return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{offerId}")
+    public ResponseEntity<Offer> updateOffer (@PathVariable Long offerId, @RequestBody Offer offerToUpdate) {
+
+        try {
+            Offer offerUpdated = offerService.updateOffer(offerId, offerToUpdate);
+            return ResponseEntity.ok(offerUpdated);
+        } catch (OfferNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
