@@ -15,9 +15,4 @@ public class EquipmentServiceImpl implements EquipmentService{
         this.equipmentRepository = equipmentRepository;
     }
 
-//    @Override
-//    public List<Equipment> getAllEquipmentByCarId(Long carToGetEquipment){
-//
-//        return  equipmentRepository.findAllEquipmentByCar(carToGetEquipment);
-//    }
 }

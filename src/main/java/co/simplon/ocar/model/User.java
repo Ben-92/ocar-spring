@@ -45,9 +45,6 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     /* adding joining with offer */
-    //@JsonIgnore
-//    @JsonManagedReference
-//    @JsonBackReference
     @JsonIgnoreProperties("user")
     @OneToMany(mappedBy = "user")
     private List<Offer> offers = new ArrayList<>();

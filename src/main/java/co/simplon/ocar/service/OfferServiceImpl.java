@@ -184,28 +184,14 @@ public class OfferServiceImpl implements OfferService {
 
             offerToUpdate.setEquipments(existingOffer.getEquipments());
 
-            System.out.println("equipment en base: ");
-            for (Equipment equipInDb : existingOffer.getEquipments()){
-                System.out.println(equipInDb);
-            }
-
-            System.out.println("entrée dans boucle equipement reçu");
 
             for (Equipment equip : equipmentL){
                 Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
                 System.out.println("equipement reçu: " + equip.getLabel());
                 if (optionalEquipment.isPresent()){ //l'equipement existe en base   Offer offerToAddToSet = new Offer ();
                     // option 1 : dans le sens : ajouter un equipement à l'offre - Ajouter l'equipement dans le Set<equipement> de l'Offer
-                    System.out.println("equipment is present in db equipment");
-
-
-//                    offerToUpdate.setEquipments(existingOffer.getEquipments());
-
-                    System.out.println("optionalEquipment.get(): " + optionalEquipment.get());
 
                     offerToUpdate.getEquipments().add(optionalEquipment.get());
-
-                    System.out.println("offerToUpdate : " + offerToUpdate);
 
                     offerRepository.save(offerToUpdate);
 
@@ -213,19 +199,13 @@ public class OfferServiceImpl implements OfferService {
 
                     System.out.println("equipment not present in db equipment");
 
-//                    offerToUpdate.setEquipments(existingOffer.getEquipments());
-
                     equipmentRepository.save(equip);
                     Optional<Equipment> optionalEquipmentJustSaved = equipmentRepository.findByLabel(equip.getLabel());
 
-//                    System.out.println("equip: " + equip);
 //                    ajouter equip sans le save dans equipment d'abord ne fonctionne pas : il créee bien la relation, mais alimente type et label à null dans la base Equipment
 //                    offerToUpdate.getEquipments().add(equip);
 
-                    System.out.println("optionalEquipmentJustSaved.get(): " + optionalEquipmentJustSaved.get());
                     offerToUpdate.getEquipments().add(optionalEquipmentJustSaved.get());
-
-                    System.out.println("offerToUpdate : " + offerToUpdate);
 
                     offerRepository.save(offerToUpdate);
                 }
@@ -236,7 +216,6 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL) {
 
-        System.out.println("updateEquipmentToOffer");
         Optional<Offer> optionalOffer = offerRepository.findById(offerId);
 
         if (optionalOffer.isPresent()){
@@ -262,10 +241,7 @@ public class OfferServiceImpl implements OfferService {
             existingOffer.getEquipments().clear();
             offerToUpdate.setEquipments(existingOffer.getEquipments());
 
-//            System.out.println("liste des équipements: ");
-//            for (Equipment equip : equipmentL){
-//                System.out.println(equip);
-//            }
+
             if (! equipmentL.isEmpty()) {
 
                 for (Equipment equip : equipmentL) {
@@ -318,29 +294,5 @@ public class OfferServiceImpl implements OfferService {
             throw new OfferNotFoundException();
         }
     }
-
 }
 
-// récupérer le set d'offers de l'equipment
-// option 2 : dans le sens : ajouter une offre à l'équipement : ça ne fonctionne pas car c'est l'offer qui est maitre
-//alimenter dans le set d'offers de l'objet Equipment, l'Offer en cours
-//                        Set<Offer> offerset = new HashSet<>();
-//                        offerset.add(existingOffer);
-//                        equip.setOffers(offerset);
-//                        //sauver l'equipement
-//                        equipmentRepository.save(equip);
-
-//                    Equipment equipmentToAdd = new Equipment();
-//                    equipmentToAdd.setId(optionalEquipment.get().getId());
-//                    equipmentToAdd.setLabel(optionalEquipment.get().getLabel());
-//                    equipmentToAdd.setType(optionalEquipment.get().getType());
-
-// option 1 : dans le sens : ajouter un equipement à l'offre : ça fonctionne car l'offer est maitre dans la relation manytomany
-//                    Set<Equipment> equipmentSet = new HashSet<>();
-//                    equipmentSet.add(equip);
-//
-//                        offerToUpdate.setEquipments(equipmentSet);
-//                        offerRepository.save(offerToUpdate);
-
-//                if (existingOffer.getEquipments().contains(equip)){
-//                }

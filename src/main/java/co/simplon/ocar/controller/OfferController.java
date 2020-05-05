@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -128,15 +128,15 @@ public class OfferController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("{offerId}/equipments")
-    public ResponseEntity<?> addEquipment(  @PathVariable Long offerId,
-                                            @RequestBody List<Equipment> equipmentL)
-            {
-
-
-        offerService.addEquipmentToOffer(offerId, equipmentL);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("{offerId}/equipments")
+//    public ResponseEntity<?> addEquipment(  @PathVariable Long offerId,
+//                                            @RequestBody List<Equipment> equipmentL)
+//            {
+//
+//
+//        offerService.addEquipmentToOffer(offerId, equipmentL);
+//        return ResponseEntity.ok().build();
+//    }
 
     @PutMapping("{offerId}/equipments")
     public ResponseEntity<?> updateEquipmentToOffer(  @PathVariable Long offerId,

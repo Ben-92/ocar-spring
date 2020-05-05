@@ -85,17 +85,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 }
-
-//.antMatchers("/api/users/*/offer").permitAll()
-//        .antMatchers("/api/offers/*/images").permitAll()
-//        .antMatchers("/api/offers/*/equipments").permitAll()
-//.antMatchers("/api/images/*").permitAll()
-
-
-
-
-
-
-//.antMatchers("/api/users/*").permitAll()
-
-//.antMatchers("/api/clients/*/offer").permitAll()

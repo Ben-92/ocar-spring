@@ -21,5 +21,4 @@ public interface UserService {
      */
     Offer createOfferToUser(Long userId, Offer offerToAdd);
 
-//    Offer updateOfferToUser(Long userId, Offer offerToUpdate);
 }

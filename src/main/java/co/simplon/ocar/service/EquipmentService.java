@@ -8,5 +8,4 @@ import java.util.List;
 @Service
 public interface EquipmentService {
 
-//    List<Equipment> getAllEquipmentByCarId(Long carToGetEquipment);
 }

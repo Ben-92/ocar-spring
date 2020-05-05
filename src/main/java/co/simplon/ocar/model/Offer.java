@@ -43,8 +43,6 @@ public class Offer {
 
     /* adding joining with user */
     @ManyToOne
-//    @JsonBackReference
-//    @JsonManagedReference
     @JsonIgnoreProperties("offers")
     private User user;
 
@@ -106,9 +104,7 @@ public class Offer {
         return price;
     }
 
-//    public Client getClient() {
-//        return client;
-//    }
+
 
 
     public User getUser() {
@@ -165,9 +161,6 @@ public class Offer {
         this.price = price;
     }
 
-//    public void setClient(Client client) {
-//        this.client = client;
-//    }
 
     public void setUser(User user) {
         this.user = user;
