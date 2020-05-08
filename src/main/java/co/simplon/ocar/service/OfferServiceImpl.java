@@ -99,7 +99,7 @@ public class OfferServiceImpl implements OfferService {
 
         // If page number is not null then use it for paging, otherwise provide page 0
         int pNumber = (pageNumber != null) ? pageNumber : 0;
-        // If page size is not null then use it for paging, otherwise use default 50 page size
+        // If page size is not null then use it for paging, otherwise use default 3 page size
         int pSize = (pageSize != null) ? pageSize : 3;
 
         // By default sort on aliment name
@@ -247,7 +247,7 @@ public class OfferServiceImpl implements OfferService {
                 for (Equipment equip : equipmentL) {
 
                     Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
-                    if (optionalEquipment.isPresent()) { //l'equipement existe en base   Offer offerToAddToSet = new Offer ();
+                    if (optionalEquipment.isPresent()) { //l'equipement existe en base
 
                         offerToUpdate.getEquipments().add(optionalEquipment.get());
 
