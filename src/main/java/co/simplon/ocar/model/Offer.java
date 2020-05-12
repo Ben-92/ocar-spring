@@ -46,7 +46,7 @@ public class Offer {
     @JsonIgnoreProperties("offers")
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) /*PERSIST : when creating offer. When offer deleted, Jpa delete the relation table rows without need to tell Jpa*/
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) /*PERSIST : when creating offer, creates ow in relationship table. When offer deleted, Jpa delete the relation table rows without need to tell Jpa*/
     @JoinTable(
             name = "offers_equipments",
             joinColumns = @JoinColumn(name = "offer_id"),
@@ -55,6 +55,10 @@ public class Offer {
 
     @OneToMany(mappedBy = "offer", cascade = CascadeType.REMOVE) /*cascadeType.REMOVE when deleting an offer */
     private List<Image> images = new ArrayList<>();
+
+
+    @OneToOne(mappedBy = "offer")
+    private Sale sale;
 
 
 
@@ -103,7 +107,6 @@ public class Offer {
     public Integer getPrice() {
         return price;
     }
-
 
 
 
@@ -176,6 +179,14 @@ public class Offer {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
     }
 
     @Override

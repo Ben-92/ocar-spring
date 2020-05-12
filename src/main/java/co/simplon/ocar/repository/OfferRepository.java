@@ -26,7 +26,17 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
      * @param page  Pageable object
      * @return an Offer Page if existing
      */
-    Page<Offer> findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetween(
+//    Page<Offer> findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetween(
+//            String lowestBrand, String highestBrand,
+//            String lowestModel, String highestModel,
+//            Integer lowestPostCode, Integer highestPostCode,
+//            String lowestYear, String highestYear,
+//            String gearbox,
+//            Integer lowestPrice, Integer highestPrice,
+//            Pageable page
+//    );
+
+    Page<Offer> findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetweenAndSaleNull  (
             String lowestBrand, String highestBrand,
             String lowestModel, String highestModel,
             Integer lowestPostCode, Integer highestPostCode,
@@ -35,6 +45,8 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
             Integer lowestPrice, Integer highestPrice,
             Pageable page
     );
+
+    Page<Offer> findAllBySaleNull (Pageable page);
 
 
 

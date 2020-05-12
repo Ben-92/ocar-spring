@@ -13,7 +13,7 @@
 --      insert into roles (id, name) values (2, 'ROLE_MODERATOR');
 --      insert into roles (id, name) values (3, 'ROLE_ADMIN');
 
--- pour les passages suivants : ordre sql 'bidon' pour les passages en ddl-auto=update. le data.sql ne peut pas être vide
+-- pour les passages ddl-auto=update : ordre sql 'bidon' pour les passages en ddl-auto=update. le data.sql ne peut pas être vide
 update roles set name = 'ROLE_USER' where id = 1;
 --
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Sièges cuir');
