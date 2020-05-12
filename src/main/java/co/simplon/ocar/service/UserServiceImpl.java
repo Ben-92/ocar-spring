@@ -1,8 +1,10 @@
 package co.simplon.ocar.service;
 
 import co.simplon.ocar.model.Offer;
+import co.simplon.ocar.model.Sale;
 import co.simplon.ocar.model.User;
 import co.simplon.ocar.repository.OfferRepository;
+import co.simplon.ocar.repository.SaleRepository;
 import co.simplon.ocar.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,14 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private OfferRepository offerRepository;
+    private SaleRepository saleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, OfferRepository offerRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           OfferRepository offerRepository,
+                           SaleRepository saleRepository) {
         this.offerRepository = offerRepository;
         this.userRepository = userRepository;
+        this.saleRepository = saleRepository;
     }
 
 
@@ -43,5 +49,38 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    @Override
+    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            saleToCreate.setUser(user.get());
+
+            Optional<Offer> offer = offerRepository.findById(offerId);
+            if (offer.isPresent()){
+                saleToCreate.setOffer(offer.get());
+                return saleRepository.save(saleToCreate);
+            } else {
+                return null;
+            }
+        } else {
+            // On devrait renvoyer une exception
+            return null;
+        }
+    }
+
+//    @Override
+//    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId) {
+//        Optional<User> user = userRepository.findById(userId);
+//
+//        if (user.isPresent()) {
+//            saleToCreate.setUser(user.get());
+//            return saleRepository.save(saleToCreate);
+//        } else {
+//            // On devrait renvoyer une exception
+//            return null;
+//        }
+//    }
 
 }

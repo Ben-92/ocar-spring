@@ -1,6 +1,7 @@
 package co.simplon.ocar.controller;
 
 import co.simplon.ocar.model.Offer;
+import co.simplon.ocar.model.Sale;
 import co.simplon.ocar.model.User;
 import co.simplon.ocar.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,18 @@ public class UserController {
         Offer createdOffer = userService.createOfferToUser(userId, offerToAdd);
         if (createdOffer != null) {
             return ResponseEntity.ok(createdOffer);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/{userId}/sale")
+    public ResponseEntity<Sale> addSaleToUser(@PathVariable Long userId,
+                                              @RequestBody Sale saleToAdd,
+                                              @RequestParam Long offerId) {
+        Sale createdSale = userService.createSaleToUser(userId, saleToAdd, offerId);
+        if (createdSale != null) {
+            return ResponseEntity.ok(createdSale);
         } else {
             return ResponseEntity.badRequest().build();
         }

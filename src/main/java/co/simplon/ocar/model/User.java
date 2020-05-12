@@ -49,6 +49,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Offer> offers = new ArrayList<>();
 
+
+    @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user")
+    private List<Sale> sales = new ArrayList<>();
+
     public User() {
     }
 
@@ -66,6 +71,14 @@ public class User {
 
     public void setOffers(List<Offer> offers) {
         this.offers = offers;
+    }
+
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
     }
 
     public Long getId() {

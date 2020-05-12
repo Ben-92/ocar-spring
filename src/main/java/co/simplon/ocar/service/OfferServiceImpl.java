@@ -66,7 +66,8 @@ public class OfferServiceImpl implements OfferService {
             sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         }
 
-        return offerRepository.findAll(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
+//        return offerRepository.findAll(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
+        return offerRepository.findAllBySaleNull(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
     }
 
     /**
@@ -121,7 +122,7 @@ public class OfferServiceImpl implements OfferService {
             sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         }
 
-        return offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetween
+        return offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetweenAndSaleNull
                 (lowestBrand, highestBrand,
                 lowestModel, highestModel,
                 lowestPostCode, highestPostCode,

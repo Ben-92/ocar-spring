@@ -1,6 +1,7 @@
 package co.simplon.ocar.service;
 
 import co.simplon.ocar.model.Offer;
+import co.simplon.ocar.model.Sale;
 import co.simplon.ocar.model.User;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,7 @@ public interface UserService {
      * @return              the Offer created
      */
     Offer createOfferToUser(Long userId, Offer offerToAdd);
+
+    Sale createSaleToUser(Long userId, Sale saleToAdd, Long offerId);
 
 }
