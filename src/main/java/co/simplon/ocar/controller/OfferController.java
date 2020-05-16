@@ -116,7 +116,7 @@ public class OfferController {
      * @throws IOException
      */
     @PostMapping("{offerId}/images")
-    public ResponseEntity<Image> addImage(  @PathVariable Long offerId,
+    public ResponseEntity<?> addImage(  @PathVariable Long offerId,
                                             @RequestParam("imageFile") MultipartFile file)
                                             throws IOException {
 
@@ -124,17 +124,25 @@ public class OfferController {
                                 file.getContentType(),
                                 file.getBytes());
 
-        offerService.addImageToOffer(offerId, img);
-        return ResponseEntity.ok().build();
+        try {
+            offerService.addImageToOffer(offerId, img);
+            return ResponseEntity.ok().build();
+        } catch (OfferNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
-//    @PostMapping("{offerId}/equipments")
-//    public ResponseEntity<?> addEquipment(  @PathVariable Long offerId,
-//                                            @RequestBody List<Equipment> equipmentL)
-//            {
+//    @PostMapping("{offerId}/images")
+//    public ResponseEntity<Image> addImage(  @PathVariable Long offerId,
+//                                            @RequestParam("imageFile") MultipartFile file)
+//            throws IOException {
 //
+//        Image img = new Image(  file.getOriginalFilename(),
+//                file.getContentType(),
+//                file.getBytes());
 //
-//        offerService.addEquipmentToOffer(offerId, equipmentL);
+//        offerService.addImageToOffer(offerId, img);
 //        return ResponseEntity.ok().build();
 //    }
 
@@ -143,8 +151,15 @@ public class OfferController {
                                             @RequestBody List<Equipment> equipmentL)
     {
 
-        offerService.updateEquipmentToOffer(offerId, equipmentL);
-        return ResponseEntity.ok().build();
+//        offerService.updateEquipmentToOffer(offerId, equipmentL);
+//        return ResponseEntity.ok().build();
+
+        try {
+            offerService.updateEquipmentToOffer(offerId, equipmentL);
+            return ResponseEntity.ok().build();
+        } catch (OfferNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{offerId}")
@@ -169,3 +184,13 @@ public class OfferController {
     }
 
 }
+
+//    @PostMapping("{offerId}/equipments")
+//    public ResponseEntity<?> addEquipment(  @PathVariable Long offerId,
+//                                            @RequestBody List<Equipment> equipmentL)
+//            {
+//
+//
+//        offerService.addEquipmentToOffer(offerId, equipmentL);
+//        return ResponseEntity.ok().build();
+//    }

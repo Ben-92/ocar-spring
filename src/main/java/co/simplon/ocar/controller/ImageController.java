@@ -19,20 +19,20 @@ ImageService imageService ;
         this.imageService = imageService;
     }
 
-    /**
-     * getting an image by its name
-     * @param imageName name of the image
-     * @return an Offer ResponseEntity type
-     */
-    @GetMapping("/name/{imageName}")
-    public ResponseEntity<Image> getImageByName(@PathVariable("imageName") String imageName){
-        Optional<Image> optionalImageByName = imageService.getImageByName(imageName);
-        if (optionalImageByName.isPresent()){
-            return ResponseEntity.ok(optionalImageByName.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    /**
+//     * getting an image by its name
+//     * @param imageName name of the image
+//     * @return an Offer ResponseEntity type
+//     */
+//    @GetMapping("/name/{imageName}")
+//    public ResponseEntity<Image> getImageByName(@PathVariable("imageName") String imageName){
+//        Optional<Image> optionalImageByName = imageService.getImageByName(imageName);
+//        if (optionalImageByName.isPresent()){
+//            return ResponseEntity.ok(optionalImageByName.get());
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @DeleteMapping("/{imageId}")
     public ResponseEntity<Image> deleteImage (@PathVariable Long imageId){

@@ -1,5 +1,7 @@
 package co.simplon.ocar.controller;
 
+import co.simplon.ocar.exception.OfferNotFoundException;
+import co.simplon.ocar.exception.UserNotFoundException;
 import co.simplon.ocar.model.Offer;
 import co.simplon.ocar.model.Sale;
 import co.simplon.ocar.model.User;
@@ -43,25 +45,42 @@ public class UserController {
      */
     @PostMapping("/{userId}/offer")
     public ResponseEntity<Offer> addOfferToUser(@PathVariable Long userId, @RequestBody Offer offerToAdd) {
-        Offer createdOffer = userService.createOfferToUser(userId, offerToAdd);
-        if (createdOffer != null) {
+
+        try {
+            Offer createdOffer = userService.createOfferToUser(userId, offerToAdd);
             return ResponseEntity.ok(createdOffer);
-        } else {
-            return ResponseEntity.badRequest().build();
+        } catch (UserNotFoundException e){
+            return ResponseEntity.notFound().build();
         }
+
     }
 
     @PostMapping("/{userId}/sale")
     public ResponseEntity<Sale> addSaleToUser(@PathVariable Long userId,
                                               @RequestBody Sale saleToAdd,
                                               @RequestParam Long offerId) {
-        Sale createdSale = userService.createSaleToUser(userId, saleToAdd, offerId);
-        if (createdSale != null) {
+
+        try {
+            Sale createdSale = userService.createSaleToUser(userId, saleToAdd, offerId);
             return ResponseEntity.ok(createdSale);
-        } else {
-            return ResponseEntity.badRequest().build();
+        } catch (UserNotFoundException e){
+            return ResponseEntity.notFound().build();
+        } catch (OfferNotFoundException e){
+            return ResponseEntity.notFound().build();
         }
     }
+
+//    @PostMapping("/{userId}/sale")
+//    public ResponseEntity<Sale> addSaleToUser(@PathVariable Long userId,
+//                                              @RequestBody Sale saleToAdd,
+//                                              @RequestParam Long offerId) {
+//        Sale createdSale = userService.createSaleToUser(userId, saleToAdd, offerId);
+//        if (createdSale != null) {
+//            return ResponseEntity.ok(createdSale);
+//        } else {
+//            return ResponseEntity.badRequest().build();
+//        }
+//    }
 
 //    @PutMapping("/{userId}/offer")
 //    public ResponseEntity<Offer> updateOfferToUser(@PathVariable Long userId, @RequestBody Offer offerToUpdate) {

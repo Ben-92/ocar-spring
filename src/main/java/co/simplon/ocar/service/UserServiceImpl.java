@@ -1,5 +1,7 @@
 package co.simplon.ocar.service;
 
+import co.simplon.ocar.exception.OfferNotFoundException;
+import co.simplon.ocar.exception.UserNotFoundException;
 import co.simplon.ocar.model.Offer;
 import co.simplon.ocar.model.Sale;
 import co.simplon.ocar.model.User;
@@ -38,20 +40,19 @@ public class UserServiceImpl implements UserService {
      * @return              the Offer created
      */
     @Override
-    public Offer createOfferToUser(Long userId, Offer offerToCreate) {
+    public Offer createOfferToUser(Long userId, Offer offerToCreate) throws UserNotFoundException {
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isPresent()) {
             offerToCreate.setUser(user.get());
             return offerRepository.save(offerToCreate);
         } else {
-            // On devrait renvoyer une exception
-            return null;
+            throw new UserNotFoundException();
         }
     }
 
     @Override
-    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId) {
+    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId) throws UserNotFoundException, OfferNotFoundException {
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isPresent()) {
@@ -62,13 +63,33 @@ public class UserServiceImpl implements UserService {
                 saleToCreate.setOffer(offer.get());
                 return saleRepository.save(saleToCreate);
             } else {
-                return null;
+                throw new OfferNotFoundException();
             }
         } else {
             // On devrait renvoyer une exception
-            return null;
+            throw new UserNotFoundException();
         }
     }
+
+//    @Override
+//    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId)  {
+//        Optional<User> user = userRepository.findById(userId);
+//
+//        if (user.isPresent()) {
+//            saleToCreate.setUser(user.get());
+//
+//            Optional<Offer> offer = offerRepository.findById(offerId);
+//            if (offer.isPresent()){
+//                saleToCreate.setOffer(offer.get());
+//                return saleRepository.save(saleToCreate);
+//            } else {
+//                return null;
+//            }
+//        } else {
+//            // On devrait renvoyer une exception
+//            return null;
+//        }
+//    }
 
 //    @Override
 //    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId) {

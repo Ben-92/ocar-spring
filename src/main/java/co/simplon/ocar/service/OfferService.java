@@ -59,9 +59,10 @@ public interface OfferService {
      * @param offerId   Id of the Offer
      * @param imageToAdd    Image Object to Persist
      */
+//    Offer addImageToOffer(Long offerId, Image imageToAdd);
     void addImageToOffer(Long offerId, Image imageToAdd);
 
-    void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
+//    void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
 
     void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
 
@@ -69,3 +70,5 @@ public interface OfferService {
 
     Offer updateOffer (Long idOfferToUpdate, Offer offerToUpdate);
 }
+
+

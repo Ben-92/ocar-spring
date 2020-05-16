@@ -144,78 +144,89 @@ public class OfferServiceImpl implements OfferService {
      * @param imageToAdd    Image Object to Persist
      */
     @Override
-    public void addImageToOffer(Long offerId, Image imageToAdd) {
+    public void addImageToOffer(Long offerId, Image imageToAdd) throws OfferNotFoundException {
         Optional<Offer> offerOptional = offerRepository.findById(offerId);
 
         if (offerOptional.isPresent()){
             imageToAdd.setOffer(offerOptional.get());
             imageRepository.save(imageToAdd);
         } else {
-            System.out.println("Offer non trouvée en base");
-            //ajouter ici une erreur, lancer une exception, à catcher dans le controller
-        }
-
-
-    }
-
-    @Override
-    public void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL) {
-
-        Optional<Offer> optionalOffer = offerRepository.findById(offerId);
-
-        if (optionalOffer.isPresent()){
-
-            Offer existingOffer = optionalOffer.get();
-
-            Offer offerToUpdate = new Offer();
-            offerToUpdate.setId(existingOffer.getId());
-            offerToUpdate.setDate(existingOffer.getDate());
-            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
-            offerToUpdate.setCarBrand(existingOffer.getCarBrand());
-            offerToUpdate.setCarModel(existingOffer.getCarModel());
-            offerToUpdate.setYear(existingOffer.getYear());
-            offerToUpdate.setDescription(existingOffer.getDescription());
-            offerToUpdate.setFourWheelDrive(existingOffer.isFourWheelDrive());
-            offerToUpdate.setGearbox(existingOffer.getGearbox());
-            offerToUpdate.setOuterColor(existingOffer.getOuterColor());
-
-            offerToUpdate.setPrice(existingOffer.getPrice());
-            offerToUpdate.setUser(existingOffer.getUser());
-            offerToUpdate.setImages(existingOffer.getImages());
-
-            offerToUpdate.setEquipments(existingOffer.getEquipments());
-
-
-            for (Equipment equip : equipmentL){
-                Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
-                System.out.println("equipement reçu: " + equip.getLabel());
-                if (optionalEquipment.isPresent()){ //l'equipement existe en base   Offer offerToAddToSet = new Offer ();
-                    // option 1 : dans le sens : ajouter un equipement à l'offre - Ajouter l'equipement dans le Set<equipement> de l'Offer
-
-                    offerToUpdate.getEquipments().add(optionalEquipment.get());
-
-                    offerRepository.save(offerToUpdate);
-
-                } else { // l'equipement n'existe pas en base equipment
-
-                    System.out.println("equipment not present in db equipment");
-
-                    equipmentRepository.save(equip);
-                    Optional<Equipment> optionalEquipmentJustSaved = equipmentRepository.findByLabel(equip.getLabel());
-
-//                    ajouter equip sans le save dans equipment d'abord ne fonctionne pas : il créee bien la relation, mais alimente type et label à null dans la base Equipment
-//                    offerToUpdate.getEquipments().add(equip);
-
-                    offerToUpdate.getEquipments().add(optionalEquipmentJustSaved.get());
-
-                    offerRepository.save(offerToUpdate);
-                }
-            }
+//            System.out.println("Offer non trouvée en base");
+            throw new OfferNotFoundException();
         }
     }
 
+//    @Override
+//    public void addImageToOffer(Long offerId, Image imageToAdd) {
+//        Optional<Offer> offerOptional = offerRepository.findById(offerId);
+//
+//        if (offerOptional.isPresent()){
+//            imageToAdd.setOffer(offerOptional.get());
+//            imageRepository.save(imageToAdd);
+//        } else {
+//            System.out.println("Offer non trouvée en base");
+//            //ajouter ici une erreur, lancer une exception, à catcher dans le controller
+//        }
+//    }
+
+//    @Override
+//    public void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL) {
+//
+//        Optional<Offer> optionalOffer = offerRepository.findById(offerId);
+//
+//        if (optionalOffer.isPresent()){
+//
+//            Offer existingOffer = optionalOffer.get();
+//
+//            Offer offerToUpdate = new Offer();
+//            offerToUpdate.setId(existingOffer.getId());
+//            offerToUpdate.setDate(existingOffer.getDate());
+//            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
+//            offerToUpdate.setCarBrand(existingOffer.getCarBrand());
+//            offerToUpdate.setCarModel(existingOffer.getCarModel());
+//            offerToUpdate.setYear(existingOffer.getYear());
+//            offerToUpdate.setDescription(existingOffer.getDescription());
+//            offerToUpdate.setFourWheelDrive(existingOffer.isFourWheelDrive());
+//            offerToUpdate.setGearbox(existingOffer.getGearbox());
+//            offerToUpdate.setOuterColor(existingOffer.getOuterColor());
+//
+//            offerToUpdate.setPrice(existingOffer.getPrice());
+//            offerToUpdate.setUser(existingOffer.getUser());
+//            offerToUpdate.setImages(existingOffer.getImages());
+//
+//            offerToUpdate.setEquipments(existingOffer.getEquipments());
+//
+//
+//            for (Equipment equip : equipmentL){
+//                Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
+//                System.out.println("equipement reçu: " + equip.getLabel());
+//                if (optionalEquipment.isPresent()){ //l'equipement existe en base   Offer offerToAddToSet = new Offer ();
+//                    // option 1 : dans le sens : ajouter un equipement à l'offre - Ajouter l'equipement dans le Set<equipement> de l'Offer
+//
+//                    offerToUpdate.getEquipments().add(optionalEquipment.get());
+//
+//                    offerRepository.save(offerToUpdate);
+//
+//                } else { // l'equipement n'existe pas en base equipment
+//
+//                    System.out.println("equipment not present in db equipment");
+//
+//                    equipmentRepository.save(equip);
+//                    Optional<Equipment> optionalEquipmentJustSaved = equipmentRepository.findByLabel(equip.getLabel());
+//
+////                    ajouter equip sans le save dans equipment d'abord ne fonctionne pas : il créee bien la relation, mais alimente type et label à null dans la base Equipment
+////                    offerToUpdate.getEquipments().add(equip);
+//
+//                    offerToUpdate.getEquipments().add(optionalEquipmentJustSaved.get());
+//
+//                    offerRepository.save(offerToUpdate);
+//                }
+//            }
+//        }
+//    }
+
     @Override
-    public void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL) {
+    public void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL) throws OfferNotFoundException {
 
         Optional<Offer> optionalOffer = offerRepository.findById(offerId);
 
@@ -269,6 +280,8 @@ public class OfferServiceImpl implements OfferService {
                 offerRepository.save(offerToUpdate);
             }
 
+        } else {
+            throw new OfferNotFoundException();
         }
 
     }
