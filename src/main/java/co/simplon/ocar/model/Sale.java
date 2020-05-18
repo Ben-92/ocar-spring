@@ -16,7 +16,11 @@ public class Sale {
 
     private LocalDateTime date;
 
+    //Price after negociation between buyer and seller
     private Integer finalPrice;
+
+    //commission rate applicable to finalPrice
+    private Double commissionRate;
 
     @ManyToOne
     @JsonIgnoreProperties("sales")
@@ -55,6 +59,13 @@ public class Sale {
         this.finalPrice = finalPrice;
     }
 
+    public Double getCommissionRate() {
+        return commissionRate;
+    }
+
+    public void setCommissionRate(Double commissionRate) {
+        this.commissionRate = commissionRate;
+    }
 
     public User getUser() {
         return user;

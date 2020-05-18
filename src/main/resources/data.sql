@@ -16,6 +16,9 @@
 -- pour les passages ddl-auto=update : ordre sql 'bidon' pour les passages en ddl-auto=update. le data.sql ne peut pas être vide
 update roles set name = 'ROLE_USER' where id = 1;
 --
+
+-- pour le premier passage, mettre ddl-auto=create et mettre les requètes d'initialisation de la base comme ci-dessous pour
+-- initialiser les equipments
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Sièges cuir');
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Volant Alcantara');
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions adaptables');
