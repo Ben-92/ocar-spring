@@ -156,6 +156,97 @@ public class OfferServiceImpl implements OfferService {
         }
     }
 
+
+    @Override
+    public void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL) throws OfferNotFoundException {
+
+        Optional<Offer> optionalOffer = offerRepository.findById(offerId);
+
+        if (optionalOffer.isPresent()){
+
+            //retrieving existing offer
+            Offer existingOffer = optionalOffer.get();
+
+            //creating offer object to update existing offer
+            Offer offerToUpdate = new Offer();
+            offerToUpdate.setId(existingOffer.getId());
+            offerToUpdate.setDate(existingOffer.getDate());
+            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
+            offerToUpdate.setCarBrand(existingOffer.getCarBrand());
+            offerToUpdate.setCarModel(existingOffer.getCarModel());
+            offerToUpdate.setYear(existingOffer.getYear());
+            offerToUpdate.setDescription(existingOffer.getDescription());
+            offerToUpdate.setFourWheelDrive(existingOffer.isFourWheelDrive());
+            offerToUpdate.setGearbox(existingOffer.getGearbox());
+            offerToUpdate.setOuterColor(existingOffer.getOuterColor());
+
+            offerToUpdate.setPrice(existingOffer.getPrice());
+            offerToUpdate.setUser(existingOffer.getUser());
+            offerToUpdate.setImages(existingOffer.getImages());
+
+            //initialize existing offer list of equipments
+            existingOffer.getEquipments().clear();
+
+            //the list of equipment of the updated offer is cleared too
+            offerToUpdate.setEquipments(existingOffer.getEquipments());
+
+            //only if at least one equipment has been checked
+            if (! equipmentL.isEmpty()) {
+                //loop on each equipment checked by the user
+                for (Equipment equip : equipmentL) {
+
+                    Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
+                    if (optionalEquipment.isPresent()) { //equipment exists in database
+
+                        offerToUpdate.getEquipments().add(optionalEquipment.get());
+
+                        offerRepository.save(offerToUpdate);
+
+                    } else { // equipment doesn't exists in database
+
+                        equipmentRepository.save(equip);
+                        Optional<Equipment> optionalEquipmentJustSaved = equipmentRepository.findByLabel(equip.getLabel());
+
+                        offerToUpdate.getEquipments().add(optionalEquipmentJustSaved.get());
+
+                        offerRepository.save(offerToUpdate);
+                    }
+                }
+            } else {
+                offerRepository.save(offerToUpdate);
+            }
+
+        } else {
+            throw new OfferNotFoundException();
+        }
+
+    }
+
+    @Override
+    public boolean deleteOffer(Long idOfferToDelete) {
+
+        Optional<Offer> offerToDelete = offerRepository.findById(idOfferToDelete);
+        if (offerToDelete.isPresent()){
+            offerRepository.deleteById(idOfferToDelete);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Offer updateOffer (Long idOfferToUpdate, Offer offerToUpdate) throws OfferNotFoundException {
+        boolean isOfferExist = offerRepository.existsById(idOfferToUpdate);
+
+        if (isOfferExist && offerToUpdate.getId().equals(idOfferToUpdate)) {
+            return offerRepository.save(offerToUpdate);
+        } else {
+            throw new OfferNotFoundException();
+        }
+    }
+}
+
+
 //    @Override
 //    public void addImageToOffer(Long offerId, Image imageToAdd) {
 //        Optional<Offer> offerOptional = offerRepository.findById(offerId);
@@ -225,88 +316,5 @@ public class OfferServiceImpl implements OfferService {
 //        }
 //    }
 
-    @Override
-    public void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL) throws OfferNotFoundException {
-
-        Optional<Offer> optionalOffer = offerRepository.findById(offerId);
-
-        if (optionalOffer.isPresent()){
-
-            Offer existingOffer = optionalOffer.get();
-
-            Offer offerToUpdate = new Offer();
-            offerToUpdate.setId(existingOffer.getId());
-            offerToUpdate.setDate(existingOffer.getDate());
-            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
-            offerToUpdate.setCarBrand(existingOffer.getCarBrand());
-            offerToUpdate.setCarModel(existingOffer.getCarModel());
-            offerToUpdate.setYear(existingOffer.getYear());
-            offerToUpdate.setDescription(existingOffer.getDescription());
-            offerToUpdate.setFourWheelDrive(existingOffer.isFourWheelDrive());
-            offerToUpdate.setGearbox(existingOffer.getGearbox());
-            offerToUpdate.setOuterColor(existingOffer.getOuterColor());
-
-            offerToUpdate.setPrice(existingOffer.getPrice());
-            offerToUpdate.setUser(existingOffer.getUser());
-            offerToUpdate.setImages(existingOffer.getImages());
-
-            existingOffer.getEquipments().clear();
-            offerToUpdate.setEquipments(existingOffer.getEquipments());
-
-
-            if (! equipmentL.isEmpty()) {
-
-                for (Equipment equip : equipmentL) {
-
-                    Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
-                    if (optionalEquipment.isPresent()) { //l'equipement existe en base
-
-                        offerToUpdate.getEquipments().add(optionalEquipment.get());
-
-                        offerRepository.save(offerToUpdate);
-
-                    } else { // l'equipement n'existe pas en base equipment
-
-                        equipmentRepository.save(equip);
-                        Optional<Equipment> optionalEquipmentJustSaved = equipmentRepository.findByLabel(equip.getLabel());
-
 //                    offerToUpdate.getEquipments().add(equip);
-                        offerToUpdate.getEquipments().add(optionalEquipmentJustSaved.get());
-
-                        offerRepository.save(offerToUpdate);
-                    }
-                }
-            } else {
-                offerRepository.save(offerToUpdate);
-            }
-
-        } else {
-            throw new OfferNotFoundException();
-        }
-
-    }
-
-    @Override
-    public boolean deleteOffer(Long idOfferToDelete) {
-
-        Optional<Offer> offerToDelete = offerRepository.findById(idOfferToDelete);
-        if (offerToDelete.isPresent()){
-            offerRepository.deleteById(idOfferToDelete);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public Offer updateOffer (Long idOfferToUpdate, Offer offerToUpdate) throws OfferNotFoundException {
-        boolean isOfferExist = offerRepository.existsById(idOfferToUpdate);
-
-        if (isOfferExist && offerToUpdate.getId().equals(idOfferToUpdate)) {
-            return offerRepository.save(offerToUpdate);
-        } else {
-            throw new OfferNotFoundException();
-        }
-    }
-}
 

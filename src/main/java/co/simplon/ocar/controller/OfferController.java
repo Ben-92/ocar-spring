@@ -148,11 +148,7 @@ public class OfferController {
 
     @PutMapping("{offerId}/equipments")
     public ResponseEntity<?> updateEquipmentToOffer(  @PathVariable Long offerId,
-                                            @RequestBody List<Equipment> equipmentL)
-    {
-
-//        offerService.updateEquipmentToOffer(offerId, equipmentL);
-//        return ResponseEntity.ok().build();
+                                            @RequestBody List<Equipment> equipmentL) {
 
         try {
             offerService.updateEquipmentToOffer(offerId, equipmentL);
@@ -194,3 +190,6 @@ public class OfferController {
 //        offerService.addEquipmentToOffer(offerId, equipmentL);
 //        return ResponseEntity.ok().build();
 //    }
+
+//        offerService.updateEquipmentToOffer(offerId, equipmentL);
+//        return ResponseEntity.ok().build();
