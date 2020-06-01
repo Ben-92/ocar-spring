@@ -2,6 +2,7 @@ package co.simplon.ocar.service;
 
 import co.simplon.ocar.model.Equipment;
 import co.simplon.ocar.repository.EquipmentRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,11 @@ public class EquipmentServiceImpl implements EquipmentService{
 
     public EquipmentServiceImpl (EquipmentRepository equipmentRepository){
         this.equipmentRepository = equipmentRepository;
+    }
+
+    @Override
+    public List<Equipment> getEquipments() {
+        return equipmentRepository.findAll(Sort.by(Sort.Order.asc("type")));
     }
 
 }
