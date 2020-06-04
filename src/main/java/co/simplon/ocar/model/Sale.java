@@ -22,6 +22,7 @@ public class Sale {
     //commission rate applicable to finalPrice
     private Double commissionRate;
 
+    //user who has bought
     @ManyToOne
     @JsonIgnoreProperties("sales")
     private User user;

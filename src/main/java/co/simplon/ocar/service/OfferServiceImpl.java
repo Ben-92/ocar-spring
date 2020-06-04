@@ -98,6 +98,39 @@ public class OfferServiceImpl implements OfferService {
                                         Integer lowestPrice, Integer highestPrice,
                                         Integer pageNumber, Integer pageSize, String criteria, String direction) {
 
+        // If lowest brand is not null then use it for requesting, otherwise provide space
+        String lBrand = (lowestBrand != null) ? lowestBrand : " ";
+
+        // If highest brand is not null then use it for requesting, otherwise provide "zzz"
+        String hBrand = (highestBrand != null) ? highestBrand : "zzz";
+
+        // If lowest model is not null then use it for requesting, otherwise provide space
+        String lModel = (lowestModel != null) ? lowestModel : " ";
+
+        // If highest model is not null then use it for requesting, otherwise provide "zzz"
+        String hModel = (highestModel != null) ? highestModel : "zzz";
+
+        // If lowest post code is not null then use it for paging, otherwise provide 0
+        int lPostCode = (lowestPostCode != null) ? lowestPostCode : 0;
+
+        // If highest post code is not null then use it for paging, otherwise provide 99999
+        int hPostCode = (highestPostCode != null) ? highestPostCode : 99999;
+
+        // If lowest year is not null then use it for requesting, otherwise provide "0"
+        String lYear = (lowestYear != null) ? lowestYear : "0";
+
+        // If highest year is not null then use it for requesting, otherwise provide ""
+        String hYear = (highestYear != null) ? highestYear : "9999";
+
+        // If gearbox is not null then use it for requesting, otherwise provide "Manuelle"
+        String gbox = (gearbox != null) ? gearbox : "Manuelle";
+
+        // If lowest price code is not null then use it for paging, otherwise provide 0
+        int lPrice = (lowestPrice != null) ? lowestPrice : 0;
+
+        // If highest price is not null then use it for paging, otherwise provide 999999999
+        int hPrice = (highestPrice != null) ? highestPrice : 999999999;
+
         // If page number is not null then use it for paging, otherwise provide page 0
         int pNumber = (pageNumber != null) ? pageNumber : 0;
         // If page size is not null then use it for paging, otherwise use default 3 page size
@@ -117,18 +150,18 @@ public class OfferServiceImpl implements OfferService {
         }
 
         // By default sorting ascending, but if user explicitely choose desc, then sort descending
-        Sort.Direction sortingDirection = Sort.Direction.ASC;
+        Sort.Direction sortingDirection = Sort.Direction.DESC;
         if (direction != null) {
             sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         }
 
         return offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetweenAndSaleNull
-                (lowestBrand, highestBrand,
-                lowestModel, highestModel,
-                lowestPostCode, highestPostCode,
-                lowestYear, highestYear,
-                gearbox,
-                lowestPrice, highestPrice,
+                (lBrand, hBrand,
+                lModel, hModel,
+                lPostCode, hPostCode,
+                lYear, hYear,
+                gbox,
+                lPrice, hPrice,
                 PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
     }
 
