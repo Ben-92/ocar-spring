@@ -9,12 +9,14 @@ import co.simplon.ocar.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin("*")
+@ApiIgnore
 public class UserController {
 
     private UserService userService;

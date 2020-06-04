@@ -5,12 +5,14 @@ import co.simplon.ocar.service.ImageService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/images")
 @CrossOrigin("*")
+@ApiIgnore
 public class ImageController {
 
 ImageService imageService ;

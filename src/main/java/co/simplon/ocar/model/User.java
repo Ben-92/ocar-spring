@@ -44,7 +44,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    /* adding joining with offer */
+    /* adding joining with offer*/
     @JsonIgnoreProperties("user")
     @OneToMany(mappedBy = "user")
     private List<Offer> offers = new ArrayList<>();
