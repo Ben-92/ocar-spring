@@ -20,28 +20,21 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
      * @param highestPostCode   PostCode max value searched for
      * @param lowestYear    Vehicle Year min value searched for
      * @param highestYear   Vehicle Year max value searched for
-     * @param gearbox       gearbox value searched fo
+     * @param lowestGearbox  gearbox min value searched fo
+     * @param highestGearbox  gearbox max value searched fo
      * @param lowestPrice   Vehicle price min value searched for
      * @param highestPrice  Vehicle price max value searched for
      * @param page  Pageable object
      * @return an Offer Page if existing
      */
-//    Page<Offer> findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetween(
-//            String lowestBrand, String highestBrand,
-//            String lowestModel, String highestModel,
-//            Integer lowestPostCode, Integer highestPostCode,
-//            String lowestYear, String highestYear,
-//            String gearbox,
-//            Integer lowestPrice, Integer highestPrice,
-//            Pageable page
-//    );
 
-    Page<Offer> findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetweenAndSaleNull  (
+
+    Page<Offer> findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxBetweenAndPriceBetweenAndSaleNull  (
             String lowestBrand, String highestBrand,
             String lowestModel, String highestModel,
             Integer lowestPostCode, Integer highestPostCode,
             String lowestYear, String highestYear,
-            String gearbox,
+            String lowestGearbox, String highestGearbox,
             Integer lowestPrice, Integer highestPrice,
             Pageable page
     );

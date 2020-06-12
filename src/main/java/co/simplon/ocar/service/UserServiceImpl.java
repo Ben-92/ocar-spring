@@ -66,42 +66,8 @@ public class UserServiceImpl implements UserService {
                 throw new OfferNotFoundException();
             }
         } else {
-            // On devrait renvoyer une exception
             throw new UserNotFoundException();
         }
     }
-
-//    @Override
-//    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId)  {
-//        Optional<User> user = userRepository.findById(userId);
-//
-//        if (user.isPresent()) {
-//            saleToCreate.setUser(user.get());
-//
-//            Optional<Offer> offer = offerRepository.findById(offerId);
-//            if (offer.isPresent()){
-//                saleToCreate.setOffer(offer.get());
-//                return saleRepository.save(saleToCreate);
-//            } else {
-//                return null;
-//            }
-//        } else {
-//            // On devrait renvoyer une exception
-//            return null;
-//        }
-//    }
-
-//    @Override
-//    public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId) {
-//        Optional<User> user = userRepository.findById(userId);
-//
-//        if (user.isPresent()) {
-//            saleToCreate.setUser(user.get());
-//            return saleRepository.save(saleToCreate);
-//        } else {
-//            // On devrait renvoyer une exception
-//            return null;
-//        }
-//    }
 
 }

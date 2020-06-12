@@ -59,7 +59,8 @@ public class OfferController {
      * @param highestPostCode   PostCode max value searched for
      * @param lowestYear    Vehicle Year min value searched for
      * @param highestYear   Vehicle Year max value searched for
-     * @param gearbox       gearbox value searched fo
+     * @param lowestGearbox   gearbox min value searched fo
+     * @param highestGearbox  gearbox max value searched fo
      * @param lowestPrice   Vehicle price min value searched for
      * @param highestPrice  Vehicle price max value searched for
      * @param pageNumber    number of the Page to retrieve
@@ -70,7 +71,7 @@ public class OfferController {
      */
     @GetMapping("/filter")
     public Page<Offer> getFilteredOffer(
-            @ApiParam(value = "Query param for 'lowestBrand'")    @RequestParam(value = "lowestBrand", required = false) String lowestBrand,
+            @ApiParam(value = "Query param for 'lowestBrand'")   @RequestParam(value = "lowestBrand", required = false) String lowestBrand,
             @ApiParam(value = "Query param for 'highestBrand'") @RequestParam(value = "highestBrand", required = false) String highestBrand,
             @ApiParam(value = "Query param for 'lowestModel'")  @RequestParam(value = "lowestModel", required = false) String lowestModel,
             @ApiParam(value = "Query param for 'highestModel'")  @RequestParam(value = "highestModel", required = false) String highestModel,
@@ -78,7 +79,8 @@ public class OfferController {
             @ApiParam(value = "Query param for 'highestPostCode'")  @RequestParam(value = "highestPostCode", required = false) Integer highestPostCode,
             @ApiParam(value = "Query param for 'lowestYear'")  @RequestParam(value = "lowestYear", required = false) String lowestYear,
             @ApiParam(value = "Query param for 'highestYear'")  @RequestParam(value = "highestYear", required = false) String highestYear,
-            @ApiParam(value = "Query param for 'gearbox'") @RequestParam(value = "gearbox", required = false) String gearbox,
+            @ApiParam(value = "Query param for 'lowestGearbox'")    @RequestParam(value = "lowestGearbox", required = false) String lowestGearbox,
+            @ApiParam(value = "Query param for 'highestGearbox'") @RequestParam(value = "highestGearbox", required = false) String highestGearbox,
             @ApiParam(value = "Query param for 'lowestPrice'")  @RequestParam(value = "lowestPrice", required = false) Integer lowestPrice,
             @ApiParam(value = "Query param for 'highestPrice'")  @RequestParam(value = "highestPrice", required = false) Integer highestPrice,
 
@@ -88,7 +90,7 @@ public class OfferController {
             @ApiParam(value = "Query param for 'sort' direction") @Valid @RequestParam(value = "direction", required = false) String direction) {
 
         return offerService.getFilteredOffer(lowestBrand, highestBrand, lowestModel, highestModel,
-                    lowestPostCode, highestPostCode, lowestYear, highestYear, gearbox, lowestPrice, highestPrice,
+                    lowestPostCode, highestPostCode, lowestYear, highestYear, lowestGearbox, highestGearbox, lowestPrice, highestPrice,
                 pageNumber, pageSize, criteria, direction);
 
     }

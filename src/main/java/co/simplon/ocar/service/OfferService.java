@@ -35,7 +35,8 @@ public interface OfferService {
      * @param highestPostCode   PostCode max value searched for
      * @param lowestYear    Vehicle Year min value searched for
      * @param highestYear   Vehicle Year max value searched for
-     * @param gearbox       gearbox value searched fo
+     * @param lowestGearbox  min gearbox value searched for
+     * @param highestGearbox  max gearbox value searched for
      * @param lowestPrice   Vehicle price min value searched for
      * @param highestPrice  Vehicle price max value searched for
      * @param pageNumber    number of the Page to retrieve
@@ -48,7 +49,8 @@ public interface OfferService {
                                  String lowestModel, String highestModel,
                                  Integer lowestPostCode, Integer highestPostCode,
                                  String lowestYear, String highestYear,
-                                 String gearbox,
+                                 String lowestGearbox,
+                                 String highestGearbox,
                                  Integer lowestPrice, Integer highestPrice,
                                  Integer pageNumber, Integer pageSize, String criteria, String direction);
 
@@ -59,10 +61,8 @@ public interface OfferService {
      * @param offerId   Id of the Offer
      * @param imageToAdd    Image Object to Persist
      */
-//    Offer addImageToOffer(Long offerId, Image imageToAdd);
     void addImageToOffer(Long offerId, Image imageToAdd);
 
-//    void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
 
     void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL);
 

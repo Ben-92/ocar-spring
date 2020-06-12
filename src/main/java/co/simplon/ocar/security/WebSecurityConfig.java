@@ -115,4 +115,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 }
 
-// .antMatchers("/api/equipments/**").permitAll()
+

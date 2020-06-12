@@ -39,7 +39,6 @@ public class Offer {
 
     private Integer price;
 
-    // // TODO: 23/04/2020 change brand and model to entities 
 
     /* adding joining with user */
     @ManyToOne

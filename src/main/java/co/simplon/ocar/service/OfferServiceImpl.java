@@ -66,7 +66,6 @@ public class OfferServiceImpl implements OfferService {
             sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         }
 
-//        return offerRepository.findAll(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
         return offerRepository.findAllBySaleNull(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
     }
 
@@ -80,7 +79,8 @@ public class OfferServiceImpl implements OfferService {
      * @param highestPostCode   PostCode max value searched for
      * @param lowestYear    Vehicle Year min value searched for
      * @param highestYear   Vehicle Year max value searched for
-     * @param gearbox       gearbox value searched for
+     * @param lowestGearbox    gearbox min value searched for
+     * @param highestGearbox   gearbox max value searched for
      * @param lowestPrice   Vehicle price min value searched for
      * @param highestPrice  Vehicle price max value searched for
      * @param pageNumber    number of the Page to retrieve
@@ -94,7 +94,8 @@ public class OfferServiceImpl implements OfferService {
                                         String lowestModel, String highestModel,
                                         Integer lowestPostCode, Integer highestPostCode,
                                         String lowestYear, String highestYear,
-                                        String gearbox,
+                                        String lowestGearbox,
+                                        String highestGearbox,
                                         Integer lowestPrice, Integer highestPrice,
                                         Integer pageNumber, Integer pageSize, String criteria, String direction) {
 
@@ -122,8 +123,11 @@ public class OfferServiceImpl implements OfferService {
         // If highest year is not null then use it for requesting, otherwise provide ""
         String hYear = (highestYear != null) ? highestYear : "9999";
 
-        // If gearbox is not null then use it for requesting, otherwise provide "Manuelle"
-        String gbox = (gearbox != null) ? gearbox : "Manuelle";
+        // If lowest gearbox is not null then use it for requesting, otherwise provide space
+        String lGearbox = (lowestGearbox != null) ? lowestGearbox : " ";
+
+        // If highest brand is not null then use it for requesting, otherwise provide "zzz"
+        String hGearbox = (highestGearbox != null) ? highestGearbox : "zzz";
 
         // If lowest price code is not null then use it for paging, otherwise provide 0
         int lPrice = (lowestPrice != null) ? lowestPrice : 0;
@@ -155,12 +159,12 @@ public class OfferServiceImpl implements OfferService {
             sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         }
 
-        return offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxAndPriceBetweenAndSaleNull
+        return offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxBetweenAndPriceBetweenAndSaleNull
                 (lBrand, hBrand,
                 lModel, hModel,
                 lPostCode, hPostCode,
                 lYear, hYear,
-                gbox,
+                lGearbox, hGearbox,
                 lPrice, hPrice,
                 PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
     }
@@ -184,7 +188,6 @@ public class OfferServiceImpl implements OfferService {
             imageToAdd.setOffer(offerOptional.get());
             imageRepository.save(imageToAdd);
         } else {
-//            System.out.println("Offer non trouvée en base");
             throw new OfferNotFoundException();
         }
     }
@@ -278,76 +281,4 @@ public class OfferServiceImpl implements OfferService {
         }
     }
 }
-
-
-//    @Override
-//    public void addImageToOffer(Long offerId, Image imageToAdd) {
-//        Optional<Offer> offerOptional = offerRepository.findById(offerId);
-//
-//        if (offerOptional.isPresent()){
-//            imageToAdd.setOffer(offerOptional.get());
-//            imageRepository.save(imageToAdd);
-//        } else {
-//            System.out.println("Offer non trouvée en base");
-//            //ajouter ici une erreur, lancer une exception, à catcher dans le controller
-//        }
-//    }
-
-//    @Override
-//    public void addEquipmentToOffer(Long offerId, List<Equipment> equipmentL) {
-//
-//        Optional<Offer> optionalOffer = offerRepository.findById(offerId);
-//
-//        if (optionalOffer.isPresent()){
-//
-//            Offer existingOffer = optionalOffer.get();
-//
-//            Offer offerToUpdate = new Offer();
-//            offerToUpdate.setId(existingOffer.getId());
-//            offerToUpdate.setDate(existingOffer.getDate());
-//            offerToUpdate.setPostalCode(existingOffer.getPostalCode());
-//            offerToUpdate.setCarBrand(existingOffer.getCarBrand());
-//            offerToUpdate.setCarModel(existingOffer.getCarModel());
-//            offerToUpdate.setYear(existingOffer.getYear());
-//            offerToUpdate.setDescription(existingOffer.getDescription());
-//            offerToUpdate.setFourWheelDrive(existingOffer.isFourWheelDrive());
-//            offerToUpdate.setGearbox(existingOffer.getGearbox());
-//            offerToUpdate.setOuterColor(existingOffer.getOuterColor());
-//
-//            offerToUpdate.setPrice(existingOffer.getPrice());
-//            offerToUpdate.setUser(existingOffer.getUser());
-//            offerToUpdate.setImages(existingOffer.getImages());
-//
-//            offerToUpdate.setEquipments(existingOffer.getEquipments());
-//
-//
-//            for (Equipment equip : equipmentL){
-//                Optional<Equipment> optionalEquipment = equipmentRepository.findByLabel(equip.getLabel());
-//                System.out.println("equipement reçu: " + equip.getLabel());
-//                if (optionalEquipment.isPresent()){ //l'equipement existe en base   Offer offerToAddToSet = new Offer ();
-//                    // option 1 : dans le sens : ajouter un equipement à l'offre - Ajouter l'equipement dans le Set<equipement> de l'Offer
-//
-//                    offerToUpdate.getEquipments().add(optionalEquipment.get());
-//
-//                    offerRepository.save(offerToUpdate);
-//
-//                } else { // l'equipement n'existe pas en base equipment
-//
-//                    System.out.println("equipment not present in db equipment");
-//
-//                    equipmentRepository.save(equip);
-//                    Optional<Equipment> optionalEquipmentJustSaved = equipmentRepository.findByLabel(equip.getLabel());
-//
-////                    ajouter equip sans le save dans equipment d'abord ne fonctionne pas : il créee bien la relation, mais alimente type et label à null dans la base Equipment
-////                    offerToUpdate.getEquipments().add(equip);
-//
-//                    offerToUpdate.getEquipments().add(optionalEquipmentJustSaved.get());
-//
-//                    offerRepository.save(offerToUpdate);
-//                }
-//            }
-//        }
-//    }
-
-//                    offerToUpdate.getEquipments().add(equip);
 

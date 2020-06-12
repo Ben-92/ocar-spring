@@ -19,11 +19,36 @@ update roles set name = 'ROLE_USER' where id = 1;
 
 -- pour le premier passage, mettre ddl-auto=create et mettre les requètes d'initialisation de la base comme ci-dessous pour
 -- initialiser les equipments
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Sièges cuir');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'interior', 'Volant Alcantara');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions adaptables');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Suspensions réglables');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'comfort', 'Appuie-têtes réglables');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', '4 vitres électriques');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Banquette rabattable');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Boite séquentielle');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Climatisation');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Chargeur 6 CD');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Pack confort');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Prise 12 V');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Prise audio USB');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Sièges baquets');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Stores');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', '2 airbags');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Affichage tête haute');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Aide au démarrage en côte');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Anti-patinage');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Avertisseur d''angle mort');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Contrôle de pression des pneus');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Extincteur');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Feux automatiques');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Radar anti-collision');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Suspension pilotée');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Aide parking');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Attelage');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Echappement inox');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Echappement sport');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Freins céramique');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Galerie');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Pack hiver');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Peinture métallisée');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Radar de recul');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Rétroviseurs rabbatables');
 
 
 -- insert into client (id, last_name, first_name, user_name, email) values (client_seq_id.nextval, 'Redford', 'Robert', 'Bob92', 'bob@gmail.com');

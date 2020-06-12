@@ -32,7 +32,7 @@ public class UserController {
         Optional<User> user = userService.getUserById(userId);
 
         if (user.isPresent()){
-//            System.out.println(user.get().getEmail());
+
             return ResponseEntity.ok(user.get()); // maybe it would be possible here to select the fields, instead of JsonIgnore
         }
         return ResponseEntity.notFound().build();
@@ -71,31 +71,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-//    @PostMapping("/{userId}/sale")
-//    public ResponseEntity<Sale> addSaleToUser(@PathVariable Long userId,
-//                                              @RequestBody Sale saleToAdd,
-//                                              @RequestParam Long offerId) {
-//        Sale createdSale = userService.createSaleToUser(userId, saleToAdd, offerId);
-//        if (createdSale != null) {
-//            return ResponseEntity.ok(createdSale);
-//        } else {
-//            return ResponseEntity.badRequest().build();
-//        }
-//    }
-
-//    @PutMapping("/{userId}/offer")
-//    public ResponseEntity<Offer> updateOfferToUser(@PathVariable Long userId, @RequestBody Offer offerToUpdate) {
-//
-//        System.out.println("PutMapping updateOfferToUser");
-//
-//        Offer updatedOffer = userService.updateOfferToUser(userId, offerToUpdate);
-//        if (updatedOffer != null) {
-//            return ResponseEntity.ok(updatedOffer);
-//        } else {
-//            return ResponseEntity.badRequest().build();
-//        }
-//    }
 
 
 }
