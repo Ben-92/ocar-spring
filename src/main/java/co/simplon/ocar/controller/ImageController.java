@@ -21,6 +21,11 @@ ImageService imageService ;
     }
 
 
+    /**
+     * Deleting an image from DB, given its Id
+     * @param imageId id of the image to delete
+     * @return status code 204 if deleted, 404 if image not found
+     */
     @DeleteMapping("/{imageId}")
     public ResponseEntity<Image> deleteImage (@PathVariable Long imageId){
         boolean isDeleted = imageService.deleteImage(imageId);

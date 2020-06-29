@@ -51,6 +51,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * save a new sale for a given user
+     * @param userId id of th user who buy the offer
+     * @param saleToCreate sale
+     * @param offerId id of the offer which is sold
+     * @return sale created or exception if offer or user not found in database
+     * @throws UserNotFoundException
+     * @throws OfferNotFoundException
+     */
     @Override
     public Sale createSaleToUser(Long userId, Sale saleToCreate, Long offerId) throws UserNotFoundException, OfferNotFoundException {
         Optional<User> user = userRepository.findById(userId);

@@ -16,6 +16,11 @@ public class ImageServiceImpl implements ImageService{
     }
 
 
+    /**
+     * deleting an image
+     * @param idImageToDelete id of the image to delete
+     * @return boolean true if image deleted. false if no image with this id is present in database
+     */
     @Override
     public boolean deleteImage(Long idImageToDelete) {
 

@@ -16,6 +16,10 @@ public class EquipmentServiceImpl implements EquipmentService{
         this.equipmentRepository = equipmentRepository;
     }
 
+    /**
+     * retrieve list of all equipments in database
+     * @return list of Equipment objects
+     */
     @Override
     public List<Equipment> getEquipments() {
         return equipmentRepository.findAll(Sort.by(Sort.Order.asc("type")));

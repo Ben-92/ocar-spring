@@ -139,6 +139,12 @@ public class OfferController {
     }
 
 
+    /**
+     * update equipment for an specific offer with a given id
+     * @param offerId id of the offer to update
+     * @param equipmentL list of equipment to update
+     * @return status code 200 if ok, 404 if offer not found in database
+     */
     @ApiIgnore
     @PutMapping("{offerId}/equipments")
     public ResponseEntity<?> updateEquipmentToOffer(  @PathVariable Long offerId,
@@ -152,6 +158,11 @@ public class OfferController {
         }
     }
 
+    /**
+     * delete an offer
+     * @param offerId id of the offer to delete
+     * @return status code 204 if deleted, 404 if offer not found
+     */
     @ApiIgnore
     @DeleteMapping("/{offerId}")
     public ResponseEntity<Offer> deleteOffer (@PathVariable Long offerId){
@@ -163,6 +174,12 @@ public class OfferController {
             return ResponseEntity.notFound().build();
     }
 
+    /**
+     * update an offer
+     * @param offerId id of the offer to update
+     * @param offerToUpdate offer object with attributes to update
+     * @return status code 200 + offer updated if ok, status code 404 if offer not found in database
+     */
     @ApiIgnore
     @PutMapping("/{offerId}")
     public ResponseEntity<Offer> updateOffer (@PathVariable Long offerId, @RequestBody Offer offerToUpdate) {

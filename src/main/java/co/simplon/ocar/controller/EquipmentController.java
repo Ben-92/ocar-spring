@@ -21,6 +21,10 @@ public class EquipmentController {
         this.equipmentService = equipmentService;
     }
 
+    /**
+     * get list of equipment references
+     * @return List of Equipment objects
+     */
     @GetMapping
     public List<Equipment> getEquipments() {
         return equipmentService.getEquipments();

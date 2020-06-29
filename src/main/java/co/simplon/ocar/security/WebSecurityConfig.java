@@ -51,23 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /* version h2 */
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//
-//        http.cors().and().csrf().disable()
-//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//                .authorizeRequests()
-//                    .antMatchers("/").permitAll()
-//                    .antMatchers("/h2-console/**").permitAll()
-//                .anyRequest().authenticated();
-//        http.headers().frameOptions().disable();
-//
-//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//    }
-
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -108,12 +91,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/styles.js");
         web.ignoring().antMatchers("/vendor.js");
     }
-
-//    .antMatchers("/swagger-ui.html","/configuration/**","/swagger-resources/**","/v2/**", "/webjars/**").permitAll()
-//    .antMatchers("/api/users/**").permitAll()
-
-
-
 
 }
 

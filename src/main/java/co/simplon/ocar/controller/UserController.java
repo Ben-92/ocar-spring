@@ -7,7 +7,6 @@ import co.simplon.ocar.model.Sale;
 import co.simplon.ocar.model.User;
 import co.simplon.ocar.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -25,8 +24,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * getting a user, given its id
+     * @param userId id of the user to retrieve
+     * @return the user if found, status code 404 if user not found
+     */
     @GetMapping("/{userId}")
-//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<User> getUserById(@PathVariable Long userId){
 
         Optional<User> user = userService.getUserById(userId);
@@ -57,6 +60,13 @@ public class UserController {
 
     }
 
+    /**
+     * save a new sale for a given user
+     * @param userId id of th user who buy the offer
+     * @param saleToAdd sale
+     * @param offerId id of the offer which is sold
+     * @return sale created or status code 404 if user or offer not found in database
+     */
     @PostMapping("/{userId}/sale")
     public ResponseEntity<Sale> addSaleToUser(@PathVariable Long userId,
                                               @RequestBody Sale saleToAdd,

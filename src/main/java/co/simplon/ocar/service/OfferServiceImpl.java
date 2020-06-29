@@ -193,6 +193,12 @@ public class OfferServiceImpl implements OfferService {
     }
 
 
+    /**
+     * update equipment to a given offer
+     * @param offerId id of the offer the equipment has to be updated
+     * @param equipmentL list of Equipment that will be updated
+     * @throws OfferNotFoundException
+     */
     @Override
     public void updateEquipmentToOffer(Long offerId, List<Equipment> equipmentL) throws OfferNotFoundException {
 
@@ -260,6 +266,11 @@ public class OfferServiceImpl implements OfferService {
 
     }
 
+    /**
+     * delete an offer
+     * @param idOfferToDelete id of the offer to delete
+     * @return boolean true if offer deleted, false if no offer with this id present in database
+     */
     @Override
     public boolean deleteOffer(Long idOfferToDelete) {
 
@@ -272,6 +283,13 @@ public class OfferServiceImpl implements OfferService {
         }
     }
 
+    /**
+     * update an offer
+     * @param idOfferToUpdate id of the offer to update
+     * @param offerToUpdate offer object with attributes to update
+     * @return offer updated, exception if offer not present in database
+     * @throws OfferNotFoundException
+     */
     @Override
     public Offer updateOffer (Long idOfferToUpdate, Offer offerToUpdate) throws OfferNotFoundException {
         boolean isOfferExist = offerRepository.existsById(idOfferToUpdate);
