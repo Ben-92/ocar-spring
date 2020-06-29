@@ -44,13 +44,13 @@ public class OfferServiceImpl implements OfferService {
 
         // If page number is not null then use it for paging, otherwise provide page 0
         int pNumber = (pageNumber != null) ? pageNumber : 0;
-        // If page size is not null then use it for paging, otherwise use default 50 page size
+        // If page size is not null then use it for paging, otherwise use default 3 page size
         int pSize = (pageSize != null) ? pageSize : 3;
 
-        // By default sort on aliment name
+        // By default sort on offer date
         String sortingCriteria = "date";
 
-        // If sorting criteria matches an aliment field name, then use it for sorting
+        // retrieving fields labels from Offer model. If user criteria matches one, using it for sorting
         Field[] fields = Offer.class.getDeclaredFields();
         List<String> possibleCriteria = new ArrayList<>();
         for (Field field : fields) {
@@ -60,10 +60,10 @@ public class OfferServiceImpl implements OfferService {
             sortingCriteria = criteria;
         }
 
-        // By default sorting ascending, but if user explicitely choose desc, then sort descending
-        Sort.Direction sortingDirection = Sort.Direction.ASC;
+        // By default sorting descending, otherwise, using user choice sort direction
+        Sort.Direction sortingDirection = Sort.Direction.DESC;
         if (direction != null) {
-            sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+            sortingDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         }
 
         return offerRepository.findAllBySaleNull(PageRequest.of(pNumber, pSize, Sort.by(sortingDirection, sortingCriteria)));
@@ -140,10 +140,10 @@ public class OfferServiceImpl implements OfferService {
         // If page size is not null then use it for paging, otherwise use default 3 page size
         int pSize = (pageSize != null) ? pageSize : 3;
 
-        // By default sort on aliment name
+        // By default sort on offer date
         String sortingCriteria = "date";
 
-        // If sorting criteria matches an aliment field name, then use it for sorting
+        // retrieving fields labels from Offer model. If user criteria matches one, using it for sorting
         Field[] fields = Offer.class.getDeclaredFields();
         List<String> possibleCriteria = new ArrayList<>();
         for (Field field : fields) {
@@ -153,10 +153,10 @@ public class OfferServiceImpl implements OfferService {
             sortingCriteria = criteria;
         }
 
-        // By default sorting ascending, but if user explicitely choose desc, then sort descending
+        // By default sorting descending, otherwise, using user choice sort direction
         Sort.Direction sortingDirection = Sort.Direction.DESC;
         if (direction != null) {
-            sortingDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+            sortingDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         }
 
         return offerRepository.findAllByCarBrandBetweenAndCarModelBetweenAndPostalCodeBetweenAndYearBetweenAndGearboxBetweenAndPriceBetweenAndSaleNull
@@ -238,7 +238,9 @@ public class OfferServiceImpl implements OfferService {
 
                         offerRepository.save(offerToUpdate);
 
-                    } else { // equipment doesn't exists in database
+                    } else {
+//                        equipment doesn't exists in database - for future evolution if adding equipment is possible in the front side
+//                        adding controls here would be better as well
 
                         equipmentRepository.save(equip);
                         Optional<Equipment> optionalEquipmentJustSaved = equipmentRepository.findByLabel(equip.getLabel());

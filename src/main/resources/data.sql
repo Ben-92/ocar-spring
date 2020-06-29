@@ -19,6 +19,16 @@ update roles set name = 'ROLE_USER' where id = 1;
 
 -- pour le premier passage, mettre ddl-auto=create et mettre les requètes d'initialisation de la base comme ci-dessous pour
 -- initialiser les equipments
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Aide parking');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Attelage');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Echappement inox');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Echappement sport');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Freins céramique');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Galerie');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Pack hiver');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Peinture métallisée');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Radar de recul');
+-- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Rétroviseurs rabbatables');
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', '4 vitres électriques');
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Banquette rabattable');
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Intérieur', 'Boite séquentielle');
@@ -39,16 +49,7 @@ update roles set name = 'ROLE_USER' where id = 1;
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Feux automatiques');
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Radar anti-collision');
 -- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Sécurité', 'Suspension pilotée');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Aide parking');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Attelage');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Echappement inox');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Echappement sport');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Freins céramique');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Galerie');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Pack hiver');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Peinture métallisée');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Radar de recul');
--- insert into equipment (id, type, label) values (equipment_seq_id.nextval, 'Extérieur', 'Rétroviseurs rabbatables');
+
 
 
 -- insert into client (id, last_name, first_name, user_name, email) values (client_seq_id.nextval, 'Redford', 'Robert', 'Bob92', 'bob@gmail.com');
@@ -94,14 +95,5 @@ update roles set name = 'ROLE_USER' where id = 1;
 -- insert into offer (id, date, postal_code, car_brand, car_model, price, car_id)
 --     values (car_ad_seq_id.nextval, '2020-02-03T12:45:30', 59001, 'Ferrari', 'Testarossa', 140000, 3);
 
--- insert into cars_equipments (car_id, equipment_id) values (1, 1);
--- insert into cars_equipments (car_id, equipment_id) values (1, 2);
--- insert into cars_equipments (car_id, equipment_id) values (1, 3);
 
--- insert into car (id, year, gearbox, outer_color, four_wheel_drive)
---     values (car_seq_id.nextval, '2018', 'Automatique', 'Rouge', false);
--- insert into car (id, year, gearbox, outer_color, four_wheel_drive)
---     values (car_seq_id.nextval, '2016', 'Automatique', 'Bleu', true);
--- insert into car (id, year, gearbox, outer_color, four_wheel_drive)
---     values (car_seq_id.nextval, '2019', 'Manuelle', 'Jaune', false );
 

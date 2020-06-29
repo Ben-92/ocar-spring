@@ -79,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/auth/**").permitAll()
                     .antMatchers("/api/test/**").permitAll()
                     .antMatchers("/api/offers").permitAll()
+
                     .antMatchers("/api/offers/filter").permitAll()
 
                     .antMatchers(HttpMethod.GET,"/api/offers/*").permitAll()
@@ -109,6 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 //    .antMatchers("/swagger-ui.html","/configuration/**","/swagger-resources/**","/v2/**", "/webjars/**").permitAll()
+//    .antMatchers("/api/users/**").permitAll()
 
 
 

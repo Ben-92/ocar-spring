@@ -16,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin("*")
-@ApiIgnore
+//@ApiIgnore
 public class UserController {
 
     private UserService userService;
