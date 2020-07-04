@@ -38,6 +38,8 @@ public class User {
     private String password;
 
 
+    //add 01-07-2020
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
